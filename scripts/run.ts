@@ -94,3 +94,34 @@ console.log(
   "2026 PF",
   pf(struct.y2026.pf),
 );
+
+// 種子擾動：C 層路徑相依 KPI 的可信區間。seed 0 = 上表使用的 canonical 路徑。
+// 規則（FOR_MODELS）：路徑相依的主張須在 ≥70% 種子上成立，絕對 PF 只准報分布。
+const SEED_N = 20;
+console.log(`\n種子擾動（${SEED_N} 條重建路徑，seed0 = 上表）`);
+console.log(
+  "id".padEnd(12),
+  "PF min/med/max".padStart(16),
+  ">1".padStart(6),
+  "OOS med".padStart(8),
+  "seed0百分位".padStart(10),
+);
+for (const [id, p] of Object.entries(PRESETS)) {
+  const pfs: number[] = [];
+  const oosPfs: number[] = [];
+  for (let s = 0; s < SEED_N; s++) {
+    const k = runLab({ ...DEFAULT_PARAMS, ...p.params, seedOffset: s }).kpis;
+    pfs.push(k.profitFactor);
+    oosPfs.push(k.oosPf);
+  }
+  const sorted = [...pfs].sort((a, b) => a - b);
+  const oSorted = [...oosPfs].sort((a, b) => a - b);
+  const rank = sorted.filter((x) => x < pfs[0]).length;
+  console.log(
+    id.padEnd(12),
+    `${pf(sorted[0])}/${pf(sorted[Math.floor(SEED_N / 2)])}/${pf(sorted[SEED_N - 1])}`.padStart(16),
+    `${pfs.filter((x) => x > 1).length}/${SEED_N}`.padStart(6),
+    pf(oSorted[Math.floor(SEED_N / 2)]).padStart(8),
+    `${((rank / (SEED_N - 1)) * 100).toFixed(0)}%`.padStart(10),
+  );
+}

@@ -42,6 +42,11 @@ export type LabParams = {
   regimeFilter: boolean;
   stopOrFrac: number;
   targetR: number;
+  /**
+   * 1 分 K 重建路徑的種子偏移。0 = 原始 canonical 路徑（與歷史結果 bit 相容）。
+   * 任何路徑相依 KPI 都必須跨多個 seedOffset 報分布，單點不可採納。
+   */
+  seedOffset?: number;
   contract: ContractCode;
   capital: number;
   slippagePts: number;

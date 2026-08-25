@@ -108,7 +108,7 @@ export function evaluateDayTrade(
   params: LabParams,
   minutes?: MinuteBar[],
 ): DayEval {
-  const path = minutes ?? buildIntraday(day, prevClose);
+  const path = minutes ?? buildIntraday(day, prevClose, params.seedOffset ?? 0);
   const or = openingRange(path, params.probeMin);
   const orWidth = Math.max(1, or.high - or.low);
   const gapPts = day.o - prevClose;

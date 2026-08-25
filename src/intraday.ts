@@ -23,9 +23,13 @@ function smooth(t: number): number {
 export function buildIntraday(
   day: DailyBar,
   prevClose: number,
+  seedOffset = 0,
 ): MinuteBar[] {
   const n = SESSION.dayMinutes;
-  const rng = mulberry32(hashDate(day.d) ^ 0x51ed);
+  // seedOffset=0 時與舊版 hashDate(d)^0x51ed 完全相同（mulberry32 內部本來就做 >>>0）。
+  const rng = mulberry32(
+    ((hashDate(day.d) ^ 0x51ed) + Math.imul(seedOffset, 0x9e3779b9)) >>> 0,
+  );
   const { o, h, l, c } = day;
   const range = Math.max(8, h - l);
   const upDay = c >= o;
