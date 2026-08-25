@@ -137,7 +137,7 @@ export const PRESETS: Record<
   },
   struct37: {
     label: "結構37",
-    hint: "加 20 日均之上。採納得太早：九成增量來自三個大虧月",
+    hint: "加 20 日均之上。不是升級：TX 沒加分，避震器與跨星期結構已殺掉",
     params: {
       probeMin: 37,
       vwapFilter: true,

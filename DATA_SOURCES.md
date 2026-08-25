@@ -17,7 +17,11 @@ FinMind `TaiwanFuturesDaily` 匿名 API 抓完 2012-01-02 → 2026-08-25（`data
 | 期交所「期貨每日交易行情下載」 | TX 各月份契約日 OHLC＋結算價＋量＋OI | 1998 | 免費 | 年度 zip，備援用 |
 | FinMind `taiwan_futures_daily` | 同上，已整理成 API | 1998-07 | 免費（匿名可用） | **已採用**，見上 |
 
-## 里程碑 2：真實 1 分 K
+## 里程碑 2：真實 1 分 K（H-01 仍被擋住）
+
+2026-08-25 探針（`scripts/h01-probe.ts`）：FinMind `TaiwanFuturesTick` 匿名 400、`TaiwanFuturesMinute` 422；期交所 30 日 zip 直鏈回 HTML 表單頁。沒有 token、沒有互動式下載之前，不准重跑 probeMin。
+
+## 里程碑 2 來源表：真實 1 分 K
 
 | 來源 | 內容 | 起始 | 費用 | 評估 |
 | --- | --- | --- | --- | --- |
