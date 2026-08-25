@@ -2,3 +2,6 @@ node_modules/
 .DS_Store
 *.log
 .tsx-cache/
+
+data/tx-chunk-*.json
+data/tx-probe.json

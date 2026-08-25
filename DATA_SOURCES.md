@@ -3,15 +3,19 @@
 目標：終結 C 層。兩個里程碑——(1) TX 期貨日線取代 ^TWII（Q6），(2) 真實 1 分 K 取代重建路徑（Q1、Q2、Q8、Q12）。
 調查日期：2026-08-25。
 
-## 里程碑 1：TX 日線（零成本，先做）
+## 里程碑 1：TX 日線 ✅ 已完成（2026-08-25）
+
+FinMind `TaiwanFuturesDaily` 匿名 API 抓完 2012-01-02 → 2026-08-25（`data/tx-chunk-*.json` 原始檔、
+`data/tx-daily.json` 近月連續序列）。連續化規則預先登記在 `scripts/tx-drift.ts` 開頭：日盤、排除價差合約、
+近月＝最小 contract_date 有量者、缺口用同合約昨收（fallback 次數 0）。
+
+判決見 RESEARCH.md 10.5：週三漂移＝假象（殺）、日盤淨漂移為負（隔夜 109%）、缺口濾網 TX vs TWII 錯位 89/37 天。
+**剩餘工程：把 `src/market.ts` 換成（或並列）TX 序列，全部 KPI 重算。**
 
 | 來源 | 內容 | 起始 | 費用 | 備註 |
 | --- | --- | --- | --- | --- |
-| 期交所「期貨每日交易行情下載」 | TX 各月份契約日 OHLC＋結算價＋量＋OI | 1998 | 免費 | 年度 zip 一年一包，需自己拼近月連續序列 |
-| FinMind `taiwan_futures_daily` | 同上，已整理成 API | 1998-07 | 免費（註冊） | `trading_session=="position"` 取日盤、`contract_date` 取近月，havocFuture 有現成範例 |
-
-近月連續化規則要先寫死並預先登記：結算日當天用舊月還是新月、轉倉跳空怎麼處理缺口濾網。
-完成後重跑 `scripts/drift.ts`／`drift2.ts`——TX 08:45 是真實成交開盤價，stale-open 假象消失，Q12（週三）與缺口濾網可定案。
+| 期交所「期貨每日交易行情下載」 | TX 各月份契約日 OHLC＋結算價＋量＋OI | 1998 | 免費 | 年度 zip，備援用 |
+| FinMind `taiwan_futures_daily` | 同上，已整理成 API | 1998-07 | 免費（匿名可用） | **已採用**，見上 |
 
 ## 里程碑 2：真實 1 分 K
 
