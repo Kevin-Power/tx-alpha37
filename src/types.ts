@@ -27,7 +27,15 @@ export type LabParams = {
   probeMin: number;
   vwapFilter: boolean;
   volFilter: boolean;
+  /**
+   * 舊開關：兩者皆開的別名。新碼請分別設 gapSkip080 / gapDirection055。
+   * 若兩個新欄位缺席，引擎用這個值同時控制兩層。
+   */
   gapFilter: boolean;
+  /** A 層：|今開−昨收| / ATR20 ≥ 0.8 → 整日不交易。 */
+  gapSkip080: boolean;
+  /** A×C 層：缺口強度 > 0.55 ATR 時，突破方向必須與缺口同向。 */
+  gapDirection055: boolean;
   settleFilter: boolean;
   foreignFilter: boolean;
   weekdayMode: WeekdayMode;
@@ -153,4 +161,16 @@ export type ResearchSlice = {
   oosN: number;
   oosPf: number;
   oosWr: number;
+};
+
+export type WindowKpis = {
+  label: string;
+  n: number;
+  wr: number;
+  pf: number;
+  pnl: number;
+  expectancy: number;
+  cagr: number;
+  dd: number;
+  sharpe: number;
 };

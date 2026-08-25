@@ -54,11 +54,18 @@ export const SESSION = {
   cashCloseMin: 285,
 } as const;
 
+function gapFlags(on: boolean): Pick<
+  LabParams,
+  "gapFilter" | "gapSkip080" | "gapDirection055"
+> {
+  return { gapFilter: on, gapSkip080: on, gapDirection055: on };
+}
+
 export const DEFAULT_PARAMS: LabParams = {
   probeMin: 37,
   vwapFilter: true,
   volFilter: true,
-  gapFilter: true,
+  ...gapFlags(true),
   settleFilter: false,
   foreignFilter: false,
   weekdayMode: "all",
@@ -71,6 +78,30 @@ export const DEFAULT_PARAMS: LabParams = {
   commissionPerSide: 50,
   riskPct: 0.012,
 };
+
+/** 把舊的單一 gapFilter 展開成兩層。新欄位優先。 */
+export function resolveGap(params: LabParams): {
+  skip080: boolean;
+  dir055: boolean;
+} {
+  return {
+    skip080: params.gapSkip080 ?? params.gapFilter,
+    dir055: params.gapDirection055 ?? params.gapFilter,
+  };
+}
+
+export function withGap(
+  params: LabParams,
+  skip080: boolean,
+  dir055: boolean,
+): LabParams {
+  return {
+    ...params,
+    gapSkip080: skip080,
+    gapDirection055: dir055,
+    gapFilter: skip080 && dir055,
+  };
+}
 
 export const WEEKDAY_MODES: Record<
   WeekdayMode,
@@ -93,7 +124,7 @@ export const PRESETS: Record<
       probeMin: 37,
       vwapFilter: true,
       volFilter: true,
-      gapFilter: true,
+      ...gapFlags(true),
       settleFilter: false,
       foreignFilter: false,
       weekdayMode: "all",
@@ -109,7 +140,7 @@ export const PRESETS: Record<
       probeMin: 37,
       vwapFilter: true,
       volFilter: true,
-      gapFilter: true,
+      ...gapFlags(true),
       settleFilter: false,
       foreignFilter: false,
       weekdayMode: "all",
@@ -125,7 +156,7 @@ export const PRESETS: Record<
       probeMin: 37,
       vwapFilter: true,
       volFilter: true,
-      gapFilter: true,
+      ...gapFlags(true),
       settleFilter: false,
       foreignFilter: false,
       weekdayMode: "thuFri",
@@ -141,7 +172,7 @@ export const PRESETS: Record<
       probeMin: 37,
       vwapFilter: true,
       volFilter: true,
-      gapFilter: true,
+      ...gapFlags(true),
       settleFilter: false,
       foreignFilter: false,
       weekdayMode: "friday",
@@ -157,7 +188,7 @@ export const PRESETS: Record<
       probeMin: 37,
       vwapFilter: true,
       volFilter: true,
-      gapFilter: true,
+      ...gapFlags(true),
       settleFilter: false,
       foreignFilter: false,
       weekdayMode: "skipMonWed",
@@ -173,7 +204,7 @@ export const PRESETS: Record<
       probeMin: 37,
       vwapFilter: true,
       volFilter: true,
-      gapFilter: true,
+      ...gapFlags(true),
       settleFilter: true,
       foreignFilter: true,
       weekdayMode: "all",
@@ -189,7 +220,7 @@ export const PRESETS: Record<
       probeMin: 37,
       vwapFilter: false,
       volFilter: false,
-      gapFilter: false,
+      ...gapFlags(false),
       settleFilter: false,
       foreignFilter: false,
       weekdayMode: "all",
@@ -205,7 +236,7 @@ export const PRESETS: Record<
       probeMin: 15,
       vwapFilter: true,
       volFilter: true,
-      gapFilter: false,
+      ...gapFlags(false),
       settleFilter: false,
       foreignFilter: false,
       weekdayMode: "all",
@@ -221,7 +252,7 @@ export const PRESETS: Record<
       probeMin: 30,
       vwapFilter: false,
       volFilter: true,
-      gapFilter: true,
+      ...gapFlags(true),
       settleFilter: false,
       foreignFilter: false,
       weekdayMode: "all",

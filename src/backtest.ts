@@ -11,6 +11,7 @@ import { foreignBias } from "./oi";
 import {
   CONTRACTS,
   DEFAULT_PARAMS,
+  resolveGap,
   roundTripCostTwd,
   SESSION,
 } from "./specs";
@@ -120,6 +121,7 @@ export function evaluateDayTrade(
   const aboveMa = prevClose >= maPrev;
   const dow = weekdayUtc(day.d);
   const dts = daysToSettlement(day.d);
+  const gap = resolveGap(params);
 
   const base = {
     date: day.d,
@@ -153,7 +155,7 @@ export function evaluateDayTrade(
     if (orWidth < med * 0.4) skipped = "波動過低（濾網）";
     else if (orWidth > med * 2.4) skipped = "波動過高（濾網）";
   }
-  if (!skipped && params.gapFilter && atr > 0) {
+  if (!skipped && gap.skip080 && atr > 0) {
     const gapStrength = Math.abs(gapPts) / atr;
     if (gapStrength >= 0.8) skipped = "缺口過大（跳過）";
   }
@@ -192,7 +194,7 @@ export function evaluateDayTrade(
     }
   }
 
-  if (side && params.gapFilter && atr > 0) {
+  if (side && gap.dir055 && atr > 0) {
     const gapStrength = Math.abs(gapPts) / atr;
     if (gapStrength > 0.55) {
       const gapDir: Side = gapPts >= 0 ? "long" : "short";
@@ -265,6 +267,21 @@ export function evaluateDayTrade(
     equity: 0,
   };
   return { ...base, skipped: null, trade };
+}
+
+export function skipCounts(params: LabParams): Record<string, number> {
+  const bars = MARKET.bars;
+  const atr = atrSeries(bars, 20);
+  const recentOr: number[] = [];
+  const counts: Record<string, number> = {};
+  for (let i = 1; i < bars.length; i++) {
+    const ev = evaluateDayTrade(bars[i], bars[i - 1].c, atr[i], recentOr, params);
+    recentOr.push(ev.orWidth);
+    if (recentOr.length > 20) recentOr.shift();
+    const key = ev.trade ? "進場" : (ev.skipped ?? "未進場");
+    counts[key] = (counts[key] ?? 0) + 1;
+  }
+  return counts;
 }
 
 export function runBacktest(

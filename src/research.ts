@@ -1,8 +1,14 @@
-import { runLab } from "./backtest";
+import { runLab, skipCounts } from "./backtest";
 import { OOS_SPLIT, weekdayUtc } from "./calendar";
 import { barIndex, MA20, MARKET } from "./market";
-import { DEFAULT_PARAMS } from "./specs";
-import type { LabParams, ResearchSlice, Trade } from "./types";
+import { DEFAULT_PARAMS, withGap } from "./specs";
+import type {
+  BacktestResult,
+  LabParams,
+  ResearchSlice,
+  Trade,
+  WindowKpis,
+} from "./types";
 
 function sliceKpi(trades: Trade[]): Omit<ResearchSlice, "id" | "label" | "hint"> {
   const wins = trades.filter((t) => t.pnlTwd > 0);
@@ -114,4 +120,210 @@ export function dailySlicesMemo(): ResearchSlice[] {
   sliceMemo.key = key;
   sliceMemo.rows = dailySlices();
   return sliceMemo.rows;
+}
+
+function tradeStats(trades: Trade[]) {
+  const wins = trades.filter((t) => t.pnlTwd > 0);
+  const losses = trades.filter((t) => t.pnlTwd <= 0);
+  const gw = wins.reduce((s, t) => s + t.pnlTwd, 0);
+  const gl = Math.abs(losses.reduce((s, t) => s + t.pnlTwd, 0));
+  const pnl = trades.reduce((s, t) => s + t.pnlTwd, 0);
+  return {
+    n: trades.length,
+    wr: trades.length ? wins.length / trades.length : 0,
+    pf: gl > 0 ? gw / gl : gw > 0 ? 9 : 0,
+    pnl,
+    expectancy: trades.length ? pnl / trades.length : 0,
+  };
+}
+
+function sharpeOf(rets: number[]): number {
+  if (rets.length < 2) return 0;
+  const mean = rets.reduce((s, x) => s + x, 0) / rets.length;
+  const v = rets.reduce((s, x) => s + (x - mean) ** 2, 0) / rets.length;
+  return v > 0 ? (mean / Math.sqrt(v)) * Math.sqrt(242) : 0;
+}
+
+/** 用完整權益曲線切一個日曆窗：PF 來自窗內交易，MDD／Sharpe／CAGR 來自窗內權益路徑。 */
+export function windowKpis(
+  result: BacktestResult,
+  label: string,
+  pred: (date: string) => boolean,
+): WindowKpis {
+  const trades = result.trades.filter((t) => pred(t.date));
+  const stats = tradeStats(trades);
+  const eqPts = result.equity.filter((e) => pred(e.date));
+  let peak = eqPts[0]?.equity ?? result.params.capital;
+  let maxDd = 0;
+  const rets: number[] = [];
+  for (let i = 0; i < eqPts.length; i++) {
+    const eq = eqPts[i].equity;
+    if (eq > peak) peak = eq;
+    const dd = peak > 0 ? (peak - eq) / peak : 0;
+    if (dd > maxDd) maxDd = dd;
+    if (i > 0) {
+      const a = eqPts[i - 1].equity;
+      rets.push(a > 0 ? (eq - a) / a : 0);
+    }
+  }
+  const firstDate = eqPts[0]?.date ?? MARKET.bars[0]?.d ?? MARKET.asOf;
+  const lastDate = eqPts[eqPts.length - 1]?.date ?? MARKET.asOf;
+  const years = Math.max(
+    0.08,
+    (Date.parse(lastDate) - Date.parse(firstDate)) / (365.25 * 86400000),
+  );
+  const startEq = eqPts[0]?.equity ?? result.params.capital;
+  const endEq = eqPts[eqPts.length - 1]?.equity ?? startEq;
+  const ret = startEq > 0 ? (endEq - startEq) / startEq : 0;
+  const cagr = Math.pow(Math.max(1e-9, 1 + ret), 1 / years) - 1;
+  return {
+    label,
+    ...stats,
+    cagr,
+    dd: maxDd,
+    sharpe: sharpeOf(rets),
+  };
+}
+
+function sideWindow(trades: Trade[], label: string, side: "long" | "short"): WindowKpis {
+  const rows = trades.filter((t) => t.side === side);
+  const stats = tradeStats(rows);
+  let eq = DEFAULT_PARAMS.capital;
+  let peak = eq;
+  let maxDd = 0;
+  const rets: number[] = [];
+  for (const t of rows) {
+    const prev = eq;
+    eq += t.pnlTwd;
+    rets.push(prev > 0 ? (eq - prev) / prev : 0);
+    if (eq > peak) peak = eq;
+    maxDd = Math.max(maxDd, peak > 0 ? (peak - eq) / peak : 0);
+  }
+  const first = rows[0]?.date;
+  const last = rows[rows.length - 1]?.date;
+  const years =
+    first && last
+      ? Math.max(
+          0.08,
+          (Date.parse(last) - Date.parse(first)) / (365.25 * 86400000),
+        )
+      : 0.08;
+  const ret = stats.pnl / DEFAULT_PARAMS.capital;
+  const cagr = Math.pow(Math.max(1e-9, 1 + ret), 1 / years) - 1;
+  return { label, ...stats, cagr, dd: maxDd, sharpe: sharpeOf(rets) };
+}
+
+export type SpecReport = {
+  id: string;
+  label: string;
+  hint: string;
+  params: LabParams;
+  full: WindowKpis;
+  is: WindowKpis;
+  oos: WindowKpis;
+  y2024: WindowKpis;
+  y2025: WindowKpis;
+  y2026: WindowKpis;
+  weekdays: { label: string; n: number; wr: number; pf: number; pnl: number }[];
+  long: WindowKpis;
+  short: WindowKpis;
+  skip: Record<string, number>;
+  vsAlpha: {
+    dN: number;
+    dPf: number;
+    dExp: number;
+    dOosPf: number;
+    dIsPf: number;
+    d2025Pf: number;
+    d2026Pf: number;
+  };
+};
+
+export function reportSpec(
+  id: string,
+  label: string,
+  hint: string,
+  params: LabParams,
+  alpha?: BacktestResult,
+): SpecReport {
+  const result = runLab(params);
+  const ref = alpha ?? runLab(DEFAULT_PARAMS);
+  const full = windowKpis(result, "全樣本", () => true);
+  const isW = windowKpis(result, "樣本內", (d) => d < OOS_SPLIT);
+  const oos = windowKpis(result, "樣本外", (d) => d >= OOS_SPLIT);
+  const y2024 = windowKpis(result, "2024", (d) => d.startsWith("2024"));
+  const y2025 = windowKpis(result, "2025", (d) => d.startsWith("2025"));
+  const y2026 = windowKpis(result, "2026", (d) => d.startsWith("2026"));
+  const aFull = windowKpis(ref, "全樣本", () => true);
+  const aIs = windowKpis(ref, "樣本內", (d) => d < OOS_SPLIT);
+  const aOos = windowKpis(ref, "樣本外", (d) => d >= OOS_SPLIT);
+  const a2025 = windowKpis(ref, "2025", (d) => d.startsWith("2025"));
+  const a2026 = windowKpis(ref, "2026", (d) => d.startsWith("2026"));
+  return {
+    id,
+    label,
+    hint,
+    params,
+    full,
+    is: isW,
+    oos,
+    y2024,
+    y2025,
+    y2026,
+    weekdays: result.weekdays.map((w) => ({
+      label: w.label,
+      n: w.trades,
+      wr: w.trades ? w.win / w.trades : 0,
+      pf: w.pf,
+      pnl: w.pnl,
+    })),
+    long: sideWindow(result.trades, "多", "long"),
+    short: sideWindow(result.trades, "空", "short"),
+    skip: skipCounts(params),
+    vsAlpha: {
+      dN: full.n - aFull.n,
+      dPf: full.pf - aFull.pf,
+      dExp: full.expectancy - aFull.expectancy,
+      dOosPf: oos.pf - aOos.pf,
+      dIsPf: isW.pf - aIs.pf,
+      d2025Pf: y2025.pf - a2025.pf,
+      d2026Pf: y2026.pf - a2026.pf,
+    },
+  };
+}
+
+/** H-06（GPT 來稿稱 H-01）：拆開 gap 的 A 層放假 vs A×C 順勢。不調探針、不加預設。 */
+export function h06Specs(): {
+  id: string;
+  label: string;
+  hint: string;
+  params: LabParams;
+}[] {
+  return [
+    {
+      id: "noGap",
+      label: "無缺口濾網",
+      hint: "ALPHA-37 關掉兩個 gap 開關；VWAP 與波動仍開",
+      params: withGap(DEFAULT_PARAMS, false, false),
+    },
+    {
+      id: "skip080",
+      label: "只放假 0.8 ATR",
+      hint: "純 A 層：|缺口|/ATR ≥ 0.8 整日不交易；不做 0.55 順勢",
+      params: withGap(DEFAULT_PARAMS, true, false),
+    },
+    {
+      id: "both",
+      label: "ALPHA-37（兩者皆開）",
+      hint: "必須重現 n=332 PF≈1.145",
+      params: withGap(DEFAULT_PARAMS, true, true),
+    },
+  ];
+}
+
+export function h06Reports(): SpecReport[] {
+  const alpha = runLab(DEFAULT_PARAMS);
+  return h06Specs().map((s) =>
+    reportSpec(s.id, s.label, s.hint, s.params, alpha),
+  );
 }
