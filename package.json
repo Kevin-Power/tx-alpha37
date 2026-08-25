@@ -1,0 +1,9 @@
+{
+  "name": "tx-alpha37",
+  "private": true,
+  "type": "module",
+  "description": "TAIFEX TX opening-range breakout research engine (ALPHA-37)",
+  "scripts": {
+    "run": "npx --yes tsx scripts/run.ts"
+  }
+}

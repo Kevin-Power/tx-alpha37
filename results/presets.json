@@ -1,0 +1,1229 @@
+{
+  "generatedAt": "2026-08-25",
+  "market": {
+    "symbol": "TWII",
+    "source": "Yahoo Finance ^TWII",
+    "asOf": "2026-08-25",
+    "nBars": 485,
+    "first": "2024-08-26",
+    "last": "2026-08-25",
+    "firstClose": 22240.12,
+    "lastClose": 44827.83
+  },
+  "oosSplit": "2025-08-25",
+  "defaultParams": {
+    "probeMin": 37,
+    "vwapFilter": true,
+    "volFilter": true,
+    "gapFilter": true,
+    "settleFilter": false,
+    "foreignFilter": false,
+    "weekdayMode": "all",
+    "regimeFilter": false,
+    "stopOrFrac": 0.55,
+    "targetR": 0,
+    "contract": "MTX",
+    "capital": 500000,
+    "slippagePts": 2,
+    "commissionPerSide": 50,
+    "riskPct": 0.012
+  },
+  "presets": [
+    {
+      "id": "alpha37",
+      "label": "ALPHA-37",
+      "hint": "TORB 37 分 + VWAP + 波動 + 缺口。基準，不過度切片",
+      "params": {
+        "probeMin": 37,
+        "vwapFilter": true,
+        "volFilter": true,
+        "gapFilter": true,
+        "settleFilter": false,
+        "foreignFilter": false,
+        "weekdayMode": "all",
+        "regimeFilter": false,
+        "stopOrFrac": 0.55,
+        "targetR": 0,
+        "contract": "MTX",
+        "capital": 500000,
+        "slippagePts": 2,
+        "commissionPerSide": 50,
+        "riskPct": 0.012
+      },
+      "kpis": {
+        "trades": 332,
+        "skipped": 152,
+        "days": 484,
+        "winRate": 0.3675,
+        "profitFactor": 1.145,
+        "cagr": 0.1723,
+        "retPct": 0.3733,
+        "maxDdPct": 0.233,
+        "maxDd": 138080,
+        "sharpe": 0.741,
+        "expectancy": 562,
+        "avgPts": 18.15,
+        "avgWin": 12084,
+        "avgLoss": 6131,
+        "payoff": 1.9709,
+        "longs": 173,
+        "shorts": 159,
+        "y2025": -0.0156,
+        "y2026": 0.4883,
+        "oosN": 167,
+        "oosPf": 1.1892,
+        "oosWr": 0.3533,
+        "netPnl": 186665,
+        "endEquity": 686665,
+        "bestDay": 45419,
+        "worstDay": -9394,
+        "maxConsecLoss": 8,
+        "avgHoldMin": 112.7
+      },
+      "weekdays": [
+        {
+          "dow": 1,
+          "label": "週一",
+          "trades": 65,
+          "pnl": 22371,
+          "win": 20,
+          "pf": 1.0806
+        },
+        {
+          "dow": 2,
+          "label": "週二",
+          "trades": 71,
+          "pnl": 11031,
+          "win": 26,
+          "pf": 1.0372
+        },
+        {
+          "dow": 3,
+          "label": "週三",
+          "trades": 76,
+          "pnl": -7799,
+          "win": 27,
+          "pf": 0.9732
+        },
+        {
+          "dow": 4,
+          "label": "週四",
+          "trades": 57,
+          "pnl": 26651,
+          "win": 23,
+          "pf": 1.127
+        },
+        {
+          "dow": 5,
+          "label": "週五",
+          "trades": 63,
+          "pnl": 134411,
+          "win": 26,
+          "pf": 1.6324
+        }
+      ]
+    },
+    {
+      "id": "struct37",
+      "label": "結構37",
+      "hint": "加 20 日均之上 + 過大缺口放假。日線濾網，樣本外仍穩",
+      "params": {
+        "probeMin": 37,
+        "vwapFilter": true,
+        "volFilter": true,
+        "gapFilter": true,
+        "settleFilter": false,
+        "foreignFilter": false,
+        "weekdayMode": "all",
+        "regimeFilter": true,
+        "stopOrFrac": 0.55,
+        "targetR": 0,
+        "contract": "MTX",
+        "capital": 500000,
+        "slippagePts": 2,
+        "commissionPerSide": 50,
+        "riskPct": 0.012
+      },
+      "kpis": {
+        "trades": 241,
+        "skipped": 243,
+        "days": 484,
+        "winRate": 0.39,
+        "profitFactor": 1.3174,
+        "cagr": 0.2505,
+        "retPct": 0.5622,
+        "maxDdPct": 0.1511,
+        "maxDd": 93824,
+        "sharpe": 1.1719,
+        "expectancy": 1166,
+        "avgPts": 28.17,
+        "avgWin": 12411,
+        "avgLoss": 6024,
+        "payoff": 2.0602,
+        "longs": 130,
+        "shorts": 111,
+        "y2025": 0.0409,
+        "y2026": 0.4632,
+        "oosN": 127,
+        "oosPf": 1.4504,
+        "oosWr": 0.3937,
+        "netPnl": 281100,
+        "endEquity": 781100,
+        "bestDay": 45419,
+        "worstDay": -9394,
+        "maxConsecLoss": 11,
+        "avgHoldMin": 118.1
+      },
+      "weekdays": [
+        {
+          "dow": 1,
+          "label": "週一",
+          "trades": 47,
+          "pnl": 36758,
+          "win": 15,
+          "pf": 1.1889
+        },
+        {
+          "dow": 2,
+          "label": "週二",
+          "trades": 52,
+          "pnl": 25752,
+          "win": 21,
+          "pf": 1.1269
+        },
+        {
+          "dow": 3,
+          "label": "週三",
+          "trades": 54,
+          "pnl": -17953,
+          "win": 18,
+          "pf": 0.9143
+        },
+        {
+          "dow": 4,
+          "label": "週四",
+          "trades": 39,
+          "pnl": 72244,
+          "win": 19,
+          "pf": 1.5932
+        },
+        {
+          "dow": 5,
+          "label": "週五",
+          "trades": 49,
+          "pnl": 164299,
+          "win": 21,
+          "pf": 2.0485
+        }
+      ]
+    },
+    {
+      "id": "thuFri",
+      "label": "週四週五",
+      "hint": "週五選擇權帶量，樣本外獲利因子比全週更高",
+      "params": {
+        "probeMin": 37,
+        "vwapFilter": true,
+        "volFilter": true,
+        "gapFilter": true,
+        "settleFilter": false,
+        "foreignFilter": false,
+        "weekdayMode": "thuFri",
+        "regimeFilter": false,
+        "stopOrFrac": 0.55,
+        "targetR": 0,
+        "contract": "MTX",
+        "capital": 500000,
+        "slippagePts": 2,
+        "commissionPerSide": 50,
+        "riskPct": 0.012
+      },
+      "kpis": {
+        "trades": 120,
+        "skipped": 364,
+        "days": 484,
+        "winRate": 0.4083,
+        "profitFactor": 1.3813,
+        "cagr": 0.1502,
+        "retPct": 0.3221,
+        "maxDdPct": 0.086,
+        "maxDd": 50838,
+        "sharpe": 1.0031,
+        "expectancy": 1342,
+        "avgPts": 26.49,
+        "avgWin": 11906,
+        "avgLoss": 5949,
+        "payoff": 2.0015,
+        "longs": 52,
+        "shorts": 68,
+        "y2025": 0.1231,
+        "y2026": 0.2241,
+        "oosN": 59,
+        "oosPf": 1.5481,
+        "oosWr": 0.4237,
+        "netPnl": 161062,
+        "endEquity": 661062,
+        "bestDay": 43732,
+        "worstDay": -9393,
+        "maxConsecLoss": 6,
+        "avgHoldMin": 121.9
+      },
+      "weekdays": [
+        {
+          "dow": 1,
+          "label": "週一",
+          "trades": 0,
+          "pnl": 0,
+          "win": 0,
+          "pf": 0
+        },
+        {
+          "dow": 2,
+          "label": "週二",
+          "trades": 0,
+          "pnl": 0,
+          "win": 0,
+          "pf": 0
+        },
+        {
+          "dow": 3,
+          "label": "週三",
+          "trades": 0,
+          "pnl": 0,
+          "win": 0,
+          "pf": 0
+        },
+        {
+          "dow": 4,
+          "label": "週四",
+          "trades": 57,
+          "pnl": 26651,
+          "win": 23,
+          "pf": 1.127
+        },
+        {
+          "dow": 5,
+          "label": "週五",
+          "trades": 63,
+          "pnl": 134411,
+          "win": 26,
+          "pf": 1.6324
+        }
+      ]
+    },
+    {
+      "id": "friday",
+      "label": "週五突破",
+      "hint": "只做週五。筆數少、回撤最小，樣本外仍站得住",
+      "params": {
+        "probeMin": 37,
+        "vwapFilter": true,
+        "volFilter": true,
+        "gapFilter": true,
+        "settleFilter": false,
+        "foreignFilter": false,
+        "weekdayMode": "friday",
+        "regimeFilter": false,
+        "stopOrFrac": 0.55,
+        "targetR": 0,
+        "contract": "MTX",
+        "capital": 500000,
+        "slippagePts": 2,
+        "commissionPerSide": 50,
+        "riskPct": 0.012
+      },
+      "kpis": {
+        "trades": 63,
+        "skipped": 421,
+        "days": 484,
+        "winRate": 0.4127,
+        "profitFactor": 1.6324,
+        "cagr": 0.1267,
+        "retPct": 0.2688,
+        "maxDdPct": 0.0739,
+        "maxDd": 44514,
+        "sharpe": 1.0882,
+        "expectancy": 2134,
+        "avgPts": 39.53,
+        "avgWin": 13345,
+        "avgLoss": 5745,
+        "payoff": 2.323,
+        "longs": 26,
+        "shorts": 37,
+        "y2025": 0.1337,
+        "y2026": 0.1362,
+        "oosN": 31,
+        "oosPf": 1.6002,
+        "oosWr": 0.3871,
+        "netPnl": 134411,
+        "endEquity": 634411,
+        "bestDay": 43732,
+        "worstDay": -8815,
+        "maxConsecLoss": 5,
+        "avgHoldMin": 126.8
+      },
+      "weekdays": [
+        {
+          "dow": 1,
+          "label": "週一",
+          "trades": 0,
+          "pnl": 0,
+          "win": 0,
+          "pf": 0
+        },
+        {
+          "dow": 2,
+          "label": "週二",
+          "trades": 0,
+          "pnl": 0,
+          "win": 0,
+          "pf": 0
+        },
+        {
+          "dow": 3,
+          "label": "週三",
+          "trades": 0,
+          "pnl": 0,
+          "win": 0,
+          "pf": 0
+        },
+        {
+          "dow": 4,
+          "label": "週四",
+          "trades": 0,
+          "pnl": 0,
+          "win": 0,
+          "pf": 0
+        },
+        {
+          "dow": 5,
+          "label": "週五",
+          "trades": 63,
+          "pnl": 134411,
+          "win": 26,
+          "pf": 1.6324
+        }
+      ]
+    },
+    {
+      "id": "skipMonWed",
+      "label": "避開一二",
+      "hint": "週一跳空、週三週選結算都放假",
+      "params": {
+        "probeMin": 37,
+        "vwapFilter": true,
+        "volFilter": true,
+        "gapFilter": true,
+        "settleFilter": false,
+        "foreignFilter": false,
+        "weekdayMode": "skipMonWed",
+        "regimeFilter": false,
+        "stopOrFrac": 0.55,
+        "targetR": 0,
+        "contract": "MTX",
+        "capital": 500000,
+        "slippagePts": 2,
+        "commissionPerSide": 50,
+        "riskPct": 0.012
+      },
+      "kpis": {
+        "trades": 191,
+        "skipped": 293,
+        "days": 484,
+        "winRate": 0.3927,
+        "profitFactor": 1.2394,
+        "cagr": 0.1597,
+        "retPct": 0.3442,
+        "maxDdPct": 0.1466,
+        "maxDd": 89159,
+        "sharpe": 0.8938,
+        "expectancy": 901,
+        "avgPts": 19.84,
+        "avgWin": 11880,
+        "avgLoss": 6198,
+        "payoff": 1.9169,
+        "longs": 93,
+        "shorts": 98,
+        "y2025": 0.1498,
+        "y2026": 0.2579,
+        "oosN": 98,
+        "oosPf": 1.2483,
+        "oosWr": 0.3776,
+        "netPnl": 172092,
+        "endEquity": 672092,
+        "bestDay": 43732,
+        "worstDay": -9393,
+        "maxConsecLoss": 10,
+        "avgHoldMin": 118.4
+      },
+      "weekdays": [
+        {
+          "dow": 1,
+          "label": "週一",
+          "trades": 0,
+          "pnl": 0,
+          "win": 0,
+          "pf": 0
+        },
+        {
+          "dow": 2,
+          "label": "週二",
+          "trades": 71,
+          "pnl": 11031,
+          "win": 26,
+          "pf": 1.0372
+        },
+        {
+          "dow": 3,
+          "label": "週三",
+          "trades": 0,
+          "pnl": 0,
+          "win": 0,
+          "pf": 0
+        },
+        {
+          "dow": 4,
+          "label": "週四",
+          "trades": 57,
+          "pnl": 26651,
+          "win": 23,
+          "pf": 1.127
+        },
+        {
+          "dow": 5,
+          "label": "週五",
+          "trades": 63,
+          "pnl": 134411,
+          "win": 26,
+          "pf": 1.6324
+        }
+      ]
+    },
+    {
+      "id": "alpha37x",
+      "label": "ALPHA-37X",
+      "hint": "結算日跳過 + 外資流量。實驗：跳過結算日反而更差",
+      "params": {
+        "probeMin": 37,
+        "vwapFilter": true,
+        "volFilter": true,
+        "gapFilter": true,
+        "settleFilter": true,
+        "foreignFilter": true,
+        "weekdayMode": "all",
+        "regimeFilter": false,
+        "stopOrFrac": 0.55,
+        "targetR": 0,
+        "contract": "MTX",
+        "capital": 500000,
+        "slippagePts": 2,
+        "commissionPerSide": 50,
+        "riskPct": 0.012
+      },
+      "kpis": {
+        "trades": 309,
+        "skipped": 175,
+        "days": 484,
+        "winRate": 0.3528,
+        "profitFactor": 1.055,
+        "cagr": 0.0652,
+        "retPct": 0.1343,
+        "maxDdPct": 0.2732,
+        "maxDd": 157849,
+        "sharpe": 0.3687,
+        "expectancy": 217,
+        "avgPts": 11.83,
+        "avgWin": 11814,
+        "avgLoss": 6103,
+        "payoff": 1.9358,
+        "longs": 160,
+        "shorts": 149,
+        "y2025": -0.0758,
+        "y2026": 0.3287,
+        "oosN": 153,
+        "oosPf": 1.0532,
+        "oosWr": 0.3268,
+        "netPnl": 67147,
+        "endEquity": 567147,
+        "bestDay": 45419,
+        "worstDay": -9394,
+        "maxConsecLoss": 13,
+        "avgHoldMin": 109.5
+      },
+      "weekdays": [
+        {
+          "dow": 1,
+          "label": "週一",
+          "trades": 63,
+          "pnl": 15972,
+          "win": 19,
+          "pf": 1.0596
+        },
+        {
+          "dow": 2,
+          "label": "週二",
+          "trades": 69,
+          "pnl": 28797,
+          "win": 26,
+          "pf": 1.1033
+        },
+        {
+          "dow": 3,
+          "label": "週三",
+          "trades": 58,
+          "pnl": -94952,
+          "win": 16,
+          "pf": 0.6222
+        },
+        {
+          "dow": 4,
+          "label": "週四",
+          "trades": 57,
+          "pnl": 26651,
+          "win": 23,
+          "pf": 1.127
+        },
+        {
+          "dow": 5,
+          "label": "週五",
+          "trades": 62,
+          "pnl": 90679,
+          "win": 25,
+          "pf": 1.4266
+        }
+      ]
+    },
+    {
+      "id": "torb37",
+      "label": "TORB-37",
+      "hint": "學術論文原型：開盤 37 分區間突破，無濾網",
+      "params": {
+        "probeMin": 37,
+        "vwapFilter": false,
+        "volFilter": false,
+        "gapFilter": false,
+        "settleFilter": false,
+        "foreignFilter": false,
+        "weekdayMode": "all",
+        "regimeFilter": false,
+        "stopOrFrac": 0.7,
+        "targetR": 0,
+        "contract": "MTX",
+        "capital": 500000,
+        "slippagePts": 2,
+        "commissionPerSide": 50,
+        "riskPct": 0.012
+      },
+      "kpis": {
+        "trades": 465,
+        "skipped": 19,
+        "days": 484,
+        "winRate": 0.3634,
+        "profitFactor": 0.9916,
+        "cagr": -0.016,
+        "retPct": -0.0317,
+        "maxDdPct": 0.5113,
+        "maxDd": 279899,
+        "sharpe": 0.1685,
+        "expectancy": -34,
+        "avgPts": 8.94,
+        "avgWin": 11104,
+        "avgLoss": 6393,
+        "payoff": 1.7368,
+        "longs": 236,
+        "shorts": 229,
+        "y2025": -0.3974,
+        "y2026": 0.6057,
+        "oosN": 236,
+        "oosPf": 1.0083,
+        "oosWr": 0.339,
+        "netPnl": -15851,
+        "endEquity": 484149,
+        "bestDay": 74854,
+        "worstDay": -9396,
+        "maxConsecLoss": 10,
+        "avgHoldMin": 114.6
+      },
+      "weekdays": [
+        {
+          "dow": 1,
+          "label": "週一",
+          "trades": 95,
+          "pnl": -67984,
+          "win": 30,
+          "pf": 0.8341
+        },
+        {
+          "dow": 2,
+          "label": "週二",
+          "trades": 95,
+          "pnl": -23951,
+          "win": 37,
+          "pf": 0.9388
+        },
+        {
+          "dow": 3,
+          "label": "週三",
+          "trades": 98,
+          "pnl": 17634,
+          "win": 36,
+          "pf": 1.0461
+        },
+        {
+          "dow": 4,
+          "label": "週四",
+          "trades": 89,
+          "pnl": -117161,
+          "win": 30,
+          "pf": 0.7019
+        },
+        {
+          "dow": 5,
+          "label": "週五",
+          "trades": 88,
+          "pnl": 175611,
+          "win": 36,
+          "pf": 1.5554
+        }
+      ]
+    },
+    {
+      "id": "torb15",
+      "label": "ORB-15",
+      "hint": "短探針 15 分，較多訊號、假突破也較多",
+      "params": {
+        "probeMin": 15,
+        "vwapFilter": true,
+        "volFilter": true,
+        "gapFilter": false,
+        "settleFilter": false,
+        "foreignFilter": false,
+        "weekdayMode": "all",
+        "regimeFilter": false,
+        "stopOrFrac": 0.6,
+        "targetR": 1.6,
+        "contract": "MTX",
+        "capital": 500000,
+        "slippagePts": 2,
+        "commissionPerSide": 50,
+        "riskPct": 0.012
+      },
+      "kpis": {
+        "trades": 330,
+        "skipped": 154,
+        "days": 484,
+        "winRate": 0.5455,
+        "profitFactor": 1.5836,
+        "cagr": 0.4312,
+        "retPct": 1.0454,
+        "maxDdPct": 0.1082,
+        "maxDd": 58970,
+        "sharpe": 2.5497,
+        "expectancy": 1584,
+        "avgPts": 28.49,
+        "avgWin": 7880,
+        "avgLoss": 5971,
+        "payoff": 1.3196,
+        "longs": 185,
+        "shorts": 145,
+        "y2025": 0.5079,
+        "y2026": 0.3152,
+        "oosN": 185,
+        "oosPf": 2.0904,
+        "oosWr": 0.6054,
+        "netPnl": 522699,
+        "endEquity": 1022699,
+        "bestDay": 14015,
+        "worstDay": -9094,
+        "maxConsecLoss": 6,
+        "avgHoldMin": 38
+      },
+      "weekdays": [
+        {
+          "dow": 1,
+          "label": "週一",
+          "trades": 75,
+          "pnl": 50212,
+          "win": 36,
+          "pf": 1.2192
+        },
+        {
+          "dow": 2,
+          "label": "週二",
+          "trades": 65,
+          "pnl": 185569,
+          "win": 41,
+          "pf": 2.2994
+        },
+        {
+          "dow": 3,
+          "label": "週三",
+          "trades": 67,
+          "pnl": 102180,
+          "win": 36,
+          "pf": 1.547
+        },
+        {
+          "dow": 4,
+          "label": "週四",
+          "trades": 60,
+          "pnl": 140262,
+          "win": 36,
+          "pf": 1.9631
+        },
+        {
+          "dow": 5,
+          "label": "週五",
+          "trades": 63,
+          "pnl": 44476,
+          "win": 31,
+          "pf": 1.2325
+        }
+      ]
+    },
+    {
+      "id": "gap",
+      "label": "缺口順勢",
+      "hint": "只做隔夜缺口方向的突破（美盤驅動）",
+      "params": {
+        "probeMin": 30,
+        "vwapFilter": false,
+        "volFilter": true,
+        "gapFilter": true,
+        "settleFilter": false,
+        "foreignFilter": false,
+        "weekdayMode": "all",
+        "regimeFilter": false,
+        "stopOrFrac": 0.5,
+        "targetR": 1.8,
+        "contract": "MTX",
+        "capital": 500000,
+        "slippagePts": 2,
+        "commissionPerSide": 50,
+        "riskPct": 0.012
+      },
+      "kpis": {
+        "trades": 339,
+        "skipped": 145,
+        "days": 484,
+        "winRate": 0.4425,
+        "profitFactor": 1.1654,
+        "cagr": 0.1716,
+        "retPct": 0.3718,
+        "maxDdPct": 0.1958,
+        "maxDd": 100649,
+        "sharpe": 0.8892,
+        "expectancy": 548,
+        "avgPts": 20.96,
+        "avgWin": 8732,
+        "avgLoss": 5947,
+        "payoff": 1.4684,
+        "longs": 188,
+        "shorts": 151,
+        "y2025": -0.1099,
+        "y2026": 0.6543,
+        "oosN": 166,
+        "oosPf": 1.3801,
+        "oosWr": 0.4699,
+        "netPnl": 185905,
+        "endEquity": 685905,
+        "bestDay": 15832,
+        "worstDay": -9390,
+        "maxConsecLoss": 8,
+        "avgHoldMin": 50
+      },
+      "weekdays": [
+        {
+          "dow": 1,
+          "label": "週一",
+          "trades": 68,
+          "pnl": -24970,
+          "win": 26,
+          "pf": 0.9049
+        },
+        {
+          "dow": 2,
+          "label": "週二",
+          "trades": 70,
+          "pnl": 57962,
+          "win": 32,
+          "pf": 1.2596
+        },
+        {
+          "dow": 3,
+          "label": "週三",
+          "trades": 73,
+          "pnl": 48541,
+          "win": 35,
+          "pf": 1.21
+        },
+        {
+          "dow": 4,
+          "label": "週四",
+          "trades": 59,
+          "pnl": 72733,
+          "win": 29,
+          "pf": 1.416
+        },
+        {
+          "dow": 5,
+          "label": "週五",
+          "trades": 69,
+          "pnl": 31639,
+          "win": 28,
+          "pf": 1.1363
+        }
+      ]
+    }
+  ],
+  "dailySlices": [
+    {
+      "id": "all",
+      "label": "ALPHA-37 全樣本",
+      "hint": "基準。過大缺口已放假",
+      "n": 332,
+      "wr": 0.3675,
+      "pf": 1.145,
+      "cagr": 0.1723,
+      "dd": 0.233,
+      "oosN": 167,
+      "oosPf": 1.1892,
+      "oosWr": 0.3533
+    },
+    {
+      "id": "ma",
+      "label": "只做 20 日均之上",
+      "hint": "空頭結構不做。結構37",
+      "n": 241,
+      "wr": 0.39,
+      "pf": 1.3174,
+      "cagr": 0.2505,
+      "dd": 0.1511,
+      "oosN": 127,
+      "oosPf": 1.4504,
+      "oosWr": 0.3937
+    },
+    {
+      "id": "thuFri",
+      "label": "只做週四、週五",
+      "hint": "週五選擇權結算結構",
+      "n": 120,
+      "wr": 0.4083,
+      "pf": 1.3813,
+      "cagr": 0.1502,
+      "dd": 0.086,
+      "oosN": 59,
+      "oosPf": 1.5481,
+      "oosWr": 0.4237
+    },
+    {
+      "id": "friday",
+      "label": "只做週五",
+      "hint": "筆數少、回撤最小",
+      "n": 63,
+      "wr": 0.4127,
+      "pf": 1.6324,
+      "cagr": 0.1267,
+      "dd": 0.0739,
+      "oosN": 31,
+      "oosPf": 1.6002,
+      "oosWr": 0.3871
+    },
+    {
+      "id": "skipMonWed",
+      "label": "避開週一、週三",
+      "hint": "週一缺口、週三週選",
+      "n": 191,
+      "wr": 0.3927,
+      "pf": 1.2394,
+      "cagr": 0.1597,
+      "dd": 0.1466,
+      "oosN": 98,
+      "oosPf": 1.2483,
+      "oosWr": 0.3776
+    }
+  ],
+  "alpha37": {
+    "exitReasons": {
+      "尾盤平倉": 129,
+      "停損": 203
+    },
+    "weekdays": [
+      {
+        "dow": 1,
+        "label": "週一",
+        "trades": 65,
+        "pnl": 22371,
+        "win": 20,
+        "pf": 1.0806
+      },
+      {
+        "dow": 2,
+        "label": "週二",
+        "trades": 71,
+        "pnl": 11031,
+        "win": 26,
+        "pf": 1.0372
+      },
+      {
+        "dow": 3,
+        "label": "週三",
+        "trades": 76,
+        "pnl": -7799,
+        "win": 27,
+        "pf": 0.9732
+      },
+      {
+        "dow": 4,
+        "label": "週四",
+        "trades": 57,
+        "pnl": 26651,
+        "win": 23,
+        "pf": 1.127
+      },
+      {
+        "dow": 5,
+        "label": "週五",
+        "trades": 63,
+        "pnl": 134411,
+        "win": 26,
+        "pf": 1.6324
+      }
+    ],
+    "last12Months": [
+      {
+        "key": "2025-09",
+        "year": 2025,
+        "month": 9,
+        "pnl": 8613,
+        "trades": 18,
+        "win": 7
+      },
+      {
+        "key": "2025-10",
+        "year": 2025,
+        "month": 10,
+        "pnl": 10013,
+        "trades": 7,
+        "win": 3
+      },
+      {
+        "key": "2025-11",
+        "year": 2025,
+        "month": 11,
+        "pnl": -54377,
+        "trades": 12,
+        "win": 2
+      },
+      {
+        "key": "2025-12",
+        "year": 2025,
+        "month": 12,
+        "pnl": -71372,
+        "trades": 17,
+        "win": 2
+      },
+      {
+        "key": "2026-01",
+        "year": 2026,
+        "month": 1,
+        "pnl": 2145,
+        "trades": 16,
+        "win": 7
+      },
+      {
+        "key": "2026-02",
+        "year": 2026,
+        "month": 2,
+        "pnl": 36593,
+        "trades": 7,
+        "win": 4
+      },
+      {
+        "key": "2026-03",
+        "year": 2026,
+        "month": 3,
+        "pnl": 16642,
+        "trades": 15,
+        "win": 6
+      },
+      {
+        "key": "2026-04",
+        "year": 2026,
+        "month": 4,
+        "pnl": 13678,
+        "trades": 10,
+        "win": 3
+      },
+      {
+        "key": "2026-05",
+        "year": 2026,
+        "month": 5,
+        "pnl": 27197,
+        "trades": 18,
+        "win": 6
+      },
+      {
+        "key": "2026-06",
+        "year": 2026,
+        "month": 6,
+        "pnl": 104936,
+        "trades": 19,
+        "win": 8
+      },
+      {
+        "key": "2026-07",
+        "year": 2026,
+        "month": 7,
+        "pnl": -76483,
+        "trades": 14,
+        "win": 1
+      },
+      {
+        "key": "2026-08",
+        "year": 2026,
+        "month": 8,
+        "pnl": 100579,
+        "trades": 11,
+        "win": 8
+      }
+    ],
+    "sampleTrades": [
+      {
+        "date": "2026-07-21",
+        "side": "short",
+        "pts": -180,
+        "pnlTwd": -9386,
+        "reason": "停損",
+        "lots": 1,
+        "holdMin": 1
+      },
+      {
+        "date": "2026-07-23",
+        "side": "long",
+        "pts": -112.2,
+        "pnlTwd": -6001,
+        "reason": "停損",
+        "lots": 1,
+        "holdMin": 25
+      },
+      {
+        "date": "2026-07-24",
+        "side": "short",
+        "pts": -168.5,
+        "pnlTwd": -8815,
+        "reason": "停損",
+        "lots": 1,
+        "holdMin": 16
+      },
+      {
+        "date": "2026-07-29",
+        "side": "short",
+        "pts": -180,
+        "pnlTwd": -9382,
+        "reason": "停損",
+        "lots": 1,
+        "holdMin": 2
+      },
+      {
+        "date": "2026-08-03",
+        "side": "long",
+        "pts": 323.4,
+        "pnlTwd": 15783,
+        "reason": "尾盤平倉",
+        "lots": 1,
+        "holdMin": 232
+      },
+      {
+        "date": "2026-08-04",
+        "side": "short",
+        "pts": -180,
+        "pnlTwd": -9386,
+        "reason": "停損",
+        "lots": 1,
+        "holdMin": 124
+      },
+      {
+        "date": "2026-08-05",
+        "side": "long",
+        "pts": 507.3,
+        "pnlTwd": 24974,
+        "reason": "尾盤平倉",
+        "lots": 1,
+        "holdMin": 233
+      },
+      {
+        "date": "2026-08-07",
+        "side": "short",
+        "pts": 217.8,
+        "pnlTwd": 10501,
+        "reason": "尾盤平倉",
+        "lots": 1,
+        "holdMin": 208
+      },
+      {
+        "date": "2026-08-13",
+        "side": "long",
+        "pts": 205.6,
+        "pnlTwd": 9888,
+        "reason": "尾盤平倉",
+        "lots": 1,
+        "holdMin": 231
+      },
+      {
+        "date": "2026-08-14",
+        "side": "short",
+        "pts": -138.1,
+        "pnlTwd": -7298,
+        "reason": "停損",
+        "lots": 1,
+        "holdMin": 34
+      },
+      {
+        "date": "2026-08-18",
+        "side": "short",
+        "pts": 586.1,
+        "pnlTwd": 28915,
+        "reason": "尾盤平倉",
+        "lots": 1,
+        "holdMin": 198
+      },
+      {
+        "date": "2026-08-19",
+        "side": "short",
+        "pts": 170.1,
+        "pnlTwd": 8116,
+        "reason": "尾盤平倉",
+        "lots": 1,
+        "holdMin": 231
+      },
+      {
+        "date": "2026-08-20",
+        "side": "short",
+        "pts": 42.8,
+        "pnlTwd": 1751,
+        "reason": "尾盤平倉",
+        "lots": 1,
+        "holdMin": 218
+      },
+      {
+        "date": "2026-08-21",
+        "side": "long",
+        "pts": -107.1,
+        "pnlTwd": -5743,
+        "reason": "停損",
+        "lots": 1,
+        "holdMin": 40
+      },
+      {
+        "date": "2026-08-24",
+        "side": "short",
+        "pts": 469.4,
+        "pnlTwd": 23078,
+        "reason": "尾盤平倉",
+        "lots": 1,
+        "holdMin": 233
+      }
+    ]
+  }
+}
