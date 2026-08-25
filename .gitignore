@@ -5,3 +5,4 @@ node_modules/
 
 data/tx-chunk-*.json
 data/tx-probe.json
+data/taifex-30d/

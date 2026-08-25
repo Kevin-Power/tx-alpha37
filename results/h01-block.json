@@ -2,6 +2,7 @@
   "generatedAt": "2026-08-25",
   "experiment": "H-01-probe",
   "blocked": true,
+  "update_2026_08_25": "30 日檔的阻塞不成立：下方 probe 試的 Fusa/ 路徑是表單頁，DailydownloadCSV/Daily_YYYY_MM_DD.zip 匿名直鏈可用。29 真實日已聚合（results/h01-real1m.json、RESEARCH.md §5.11）。仍 blocked 的部分＝2024-08 起的歷史回補（要 FinMind sponsor）。",
   "reason": "沒有 2024-08 起的 TX 真 1 分 K。匿名 FinMind tick 被拒；期交所 30 日檔要表單下載且原始 tick 不能進公開倉。",
   "next": [
     "FinMind sponsor token 抓 2024-08→今 TX tick，本地聚合成 08:45–13:45 1 分 K（VWAP 用成交量加權）。",

@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-08-25",
+  "experiment": "H-01 第一刀：期交所 30 日逐筆 → 真實 1 分 K vs 重建路徑",
+  "unblocked": "h01-block.json 試的 Fusa/ 路徑是表單頁；DailydownloadCSV/Daily_YYYY_MM_DD.zip 直鏈可用（匿名、免表單）。",
+  "window": { "from": "2026-07-15", "to": "2026-08-24", "days": 29 },
+  "dataValidation": "29 天聚合 OHLC 與 FinMind 日線（tx-daily.json）四價全對齊（容差 0.5 點）",
+  "orWidthBias": {
+    "or37_real_over_seed0": { "min": 0.5, "med": 2.03, "max": 7.32 },
+    "or37_real_over_20seedMedian": { "p10": 0.96, "p50": 2.03, "p90": 3.68, "daysAbove1": "26/29" },
+    "or15_real_over_seed0_med": 2.8,
+    "verdict": "重建器把開盤區間做窄了約一半，且非 seed0 特例"
+  },
+  "tradeLevel": {
+    "alpha37": {
+      "bothFired": 13, "sideAgree": 11, "onlyReal": 8, "onlySynth": 1, "neither": 7,
+      "pnlReal": 37226, "pnlSynth": -40456,
+      "exitsReal": { "尾盤平倉": 11, "停損": 10 },
+      "exitsSynth": { "尾盤平倉": 4, "停損": 10 }
+    },
+    "torb15": {
+      "bothFired": 21, "sideAgree": 16, "onlyReal": 4, "onlySynth": 3, "neither": 1,
+      "pnlReal": 45507, "pnlSynth": 73322,
+      "targetHitReal": "12/25 (48%)", "targetHitSynth": "17/24 (71%)",
+      "verdict": "重建器高估固定停利命中率，與 Q1 的 20/20 種子結構偏誤互相印證"
+    }
+  },
+  "caveats": [
+    "n=29、全在 2026 多頭段，損益數字不是回測，只是校準",
+    "真實軌 recentOr 前 20 日以重建寬度暖機，波動濾網在窗初混基準",
+    "交易級對照的重建側是 seed0 單點；OR 寬度偏差已做 20 種子穩健",
+    "波動濾網 0.4–2.4×中位帶與 <22 點窄區間規則都是用重建寬度校的，真實寬度分布不同，需重校"
+  ],
+  "rerun": "npx --yes tsx scripts/h01-real1m.ts（需先跑 scripts/fetch-taifex-30d.ps1 抓 zip）"
+}
