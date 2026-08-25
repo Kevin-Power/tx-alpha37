@@ -1,6 +1,6 @@
 import { runLab, skipCounts } from "./backtest";
 import { OOS_SPLIT, weekdayUtc } from "./calendar";
-import { barIndex, MA20, MARKET } from "./market";
+import { atrExpandRatio, ATR_EXPAND_K, barIndex, MA20, MARKET } from "./market";
 import { DEFAULT_PARAMS, withGap } from "./specs";
 import type {
   BacktestResult,
@@ -82,7 +82,7 @@ export function dailySlices(): ResearchSlice[] {
     [
       "ma",
       "只做 20 日均之上",
-      "空頭結構不做。結構37",
+      "採納得太早。九成增量來自三個大虧月",
       (x) => x.aboveMa,
     ],
     [
@@ -326,4 +326,83 @@ export function h06Reports(): SpecReport[] {
   return h06Specs().map((s) =>
     reportSpec(s.id, s.label, s.hint, s.params, alpha),
   );
+}
+
+/** H-11：ATR 擴張放假（門檻鎖死 2.0）能不能複製結構37。不調門檻、不加預設。 */
+export function h11Specs(): {
+  id: string;
+  label: string;
+  hint: string;
+  params: LabParams;
+}[] {
+  return [
+    {
+      id: "alpha37",
+      label: "ALPHA-37",
+      hint: "必須重現 n=332 PF≈1.145",
+      params: { ...DEFAULT_PARAMS, atrExpandSkip: false, regimeFilter: false },
+    },
+    {
+      id: "struct37",
+      label: "結構37",
+      hint: "必須重現 n=241 PF≈1.317。MA20 開、ATR 擴張關",
+      params: { ...DEFAULT_PARAMS, atrExpandSkip: false, regimeFilter: true },
+    },
+    {
+      id: "atrSkip20",
+      label: "ATR 擴張放假 2.0",
+      hint: "MA20 關；ATR20[t-1]/ATR60[t-1] ≥ 2.0 整日放假",
+      params: { ...DEFAULT_PARAMS, atrExpandSkip: true, regimeFilter: false },
+    },
+  ];
+}
+
+export function h11Reports(): SpecReport[] {
+  const alpha = runLab(DEFAULT_PARAMS);
+  return h11Specs().map((s) =>
+    reportSpec(s.id, s.label, s.hint, s.params, alpha),
+  );
+}
+
+export type AtrExpandDist = {
+  nDays: number;
+  p50: number;
+  p75: number;
+  p90: number;
+  p95: number;
+  p99: number;
+  max: number;
+  nAtK: number;
+  nBelowMa: number;
+  k: number;
+};
+
+/** 開盤前已知的 ATR20/ATR60 分布。H-11 用來證明 2.0 有沒有開火，不是拿來改門檻。 */
+export function atrExpandDist(): AtrExpandDist {
+  const ratios: number[] = [];
+  let nBelowMa = 0;
+  let nAtK = 0;
+  for (let i = 1; i < MARKET.bars.length; i++) {
+    const r = atrExpandRatio(i);
+    ratios.push(r);
+    const prev = MARKET.bars[i - 1];
+    const ma = MA20[i - 1];
+    if (prev.c < ma) nBelowMa += 1;
+    if (r >= ATR_EXPAND_K) nAtK += 1;
+  }
+  const s = [...ratios].sort((a, b) => a - b);
+  const pct = (p: number) =>
+    s[Math.min(s.length - 1, Math.floor((p / 100) * (s.length - 1)))] ?? 0;
+  return {
+    nDays: ratios.length,
+    p50: pct(50),
+    p75: pct(75),
+    p90: pct(90),
+    p95: pct(95),
+    p99: pct(99),
+    max: s[s.length - 1] ?? 0,
+    nAtK,
+    nBelowMa,
+    k: ATR_EXPAND_K,
+  };
 }

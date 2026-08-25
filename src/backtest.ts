@@ -1,5 +1,5 @@
 import { buildIntraday, openingRange } from "./intraday";
-import { atrSeries, barIndex, MA20, MARKET } from "./market";
+import { atrExpandRatio, atrSeries, ATR_EXPAND_K, barIndex, MA20, MARKET } from "./market";
 import {
   daysToSettlement,
   isSettlement,
@@ -119,6 +119,7 @@ export function evaluateDayTrade(
   const idx = barIndex(day.d);
   const maPrev = idx > 0 ? MA20[idx - 1] : prevClose;
   const aboveMa = prevClose >= maPrev;
+  const expand = atrExpandRatio(idx);
   const dow = weekdayUtc(day.d);
   const dts = daysToSettlement(day.d);
   const gap = resolveGap(params);
@@ -134,6 +135,7 @@ export function evaluateDayTrade(
     gapPts,
     gapPct,
     atr,
+    atrExpand: expand,
     ma20: maPrev,
     aboveMa,
     weekday: dow,
@@ -149,6 +151,8 @@ export function evaluateDayTrade(
   if (params.settleFilter && settle) skipped = skipped ?? "結算日（跳過）";
   if (params.regimeFilter && !aboveMa)
     skipped = skipped ?? "低於 20 日均（空頭結構）";
+  if (params.atrExpandSkip && expand >= ATR_EXPAND_K)
+    skipped = skipped ?? "ATR 擴張放假";
   if (orWidth < 22) skipped = skipped ?? "區間過窄";
   if (!skipped && params.volFilter && recentOr.length >= 12) {
     const med = median(recentOr);

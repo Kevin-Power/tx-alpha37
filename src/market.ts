@@ -60,3 +60,18 @@ export function atrSeries(bars: DailyBar[], n = 20): number[] {
   }
   return out;
 }
+
+/** Wilder ATR20／ATR60，截至當日收盤。進場濾網要用前一日。 */
+export const ATR20: number[] = atrSeries(MARKET.bars, 20);
+export const ATR60: number[] = atrSeries(MARKET.bars, 60);
+
+/** H-11 鎖死門檻。不准改、不准做成 slider。 */
+export const ATR_EXPAND_K = 2.0;
+
+/** ATR20[t-1] / ATR60[t-1]。開盤前已知，無偷看。idx 是當日 bar index。 */
+export function atrExpandRatio(idx: number): number {
+  if (idx < 1) return 0;
+  const slow = ATR60[idx - 1];
+  if (slow <= 0) return 0;
+  return ATR20[idx - 1] / slow;
+}

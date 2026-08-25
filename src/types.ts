@@ -40,6 +40,11 @@ export type LabParams = {
   foreignFilter: boolean;
   weekdayMode: WeekdayMode;
   regimeFilter: boolean;
+  /**
+   * A 層：ATR20[t-1] / ATR60[t-1] ≥ 2.0 → 整日不交易。
+   * 門檻鎖死 2.0（H-11），不是可調參。
+   */
+  atrExpandSkip: boolean;
   stopOrFrac: number;
   targetR: number;
   /**
@@ -84,6 +89,7 @@ export type DayEval = {
   gapPts: number;
   gapPct: number;
   atr: number;
+  atrExpand: number;
   ma20: number;
   aboveMa: boolean;
   weekday: number;
