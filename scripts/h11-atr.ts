@@ -2,9 +2,11 @@ import { writeFileSync } from "node:fs";
 import { runLab } from "../src/backtest.ts";
 import { atrExpandDist, h11Reports } from "../src/research.ts";
 import { DEFAULT_PARAMS, PRESETS } from "../src/specs.ts";
-import { ATR_EXPAND_K, MARKET } from "../src/market.ts";
+import { ATR_EXPAND_K, MARKETS } from "../src/market.ts";
 import { OOS_SPLIT, weekdayUtc } from "../src/calendar.ts";
 import type { SpecReport, WindowKpis } from "../src/types.ts";
+
+const MARKET = MARKETS.twii;
 
 function r(n: number, d = 3) {
   return Number(n.toFixed(d));
@@ -33,12 +35,12 @@ function mdWindow(w: WindowKpis) {
   return `| ${w.label} | ${w.n} | ${pct(w.wr)} | ${w.pf.toFixed(3)} | ${twd(w.pnl)} | ${twd(w.expectancy)} | ${pct(w.cagr)} | ${pct(w.dd)} | ${w.sharpe.toFixed(2)} |`;
 }
 
-const alpha = runLab(DEFAULT_PARAMS);
-const reports = h11Reports();
+const alpha = runLab(DEFAULT_PARAMS, MARKET);
+const reports = h11Reports(MARKET);
 const base = reports.find((x) => x.id === "alpha37")!;
 const struct = reports.find((x) => x.id === "struct37")!;
 const expand = reports.find((x) => x.id === "atrSkip20")!;
-const dist = atrExpandDist();
+const dist = atrExpandDist(MARKET);
 
 function improve(a: WindowKpis, b: WindowKpis) {
   return a.pf > b.pf && a.expectancy > b.expectancy;
@@ -81,8 +83,8 @@ function monthPnl(
   };
 }
 
-const structResult = runLab({ ...DEFAULT_PARAMS, ...PRESETS.struct37.params });
-const expandResult = runLab(expand.params);
+const structResult = runLab({ ...DEFAULT_PARAMS, ...PRESETS.struct37.params }, MARKET);
+const expandResult = runLab(expand.params, MARKET);
 const crash = crashMonths.map((m) => {
   const a = monthPnl(alpha.trades, m);
   const s = monthPnl(structResult.trades, m);

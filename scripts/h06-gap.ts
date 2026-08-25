@@ -2,9 +2,11 @@ import { writeFileSync } from "node:fs";
 import { runLab } from "../src/backtest.ts";
 import { h06Reports, reportSpec } from "../src/research.ts";
 import { DEFAULT_PARAMS, PRESETS } from "../src/specs.ts";
-import { MARKET } from "../src/market.ts";
+import { MARKETS } from "../src/market.ts";
 import { OOS_SPLIT } from "../src/calendar.ts";
 import type { SpecReport, WindowKpis } from "../src/types.ts";
+
+const MARKET = MARKETS.twii;
 
 function r(n: number, d = 3) {
   return Number(n.toFixed(d));
@@ -33,8 +35,8 @@ function mdWindow(w: WindowKpis) {
   return `| ${w.label} | ${w.n} | ${pct(w.wr)} | ${w.pf.toFixed(3)} | ${twd(w.pnl)} | ${twd(w.expectancy)} | ${pct(w.cagr)} | ${pct(w.dd)} | ${w.sharpe.toFixed(2)} |`;
 }
 
-const alpha = runLab(DEFAULT_PARAMS);
-const reports = h06Reports();
+const alpha = runLab(DEFAULT_PARAMS, MARKET);
+const reports = h06Reports(MARKET);
 const both = reports.find((x) => x.id === "both")!;
 const skip = reports.find((x) => x.id === "skip080")!;
 const none = reports.find((x) => x.id === "noGap")!;
@@ -69,6 +71,7 @@ const struct = reportSpec(
   "補齊 IS / 年度 PF（報告完整度，不是新實驗）",
   { ...DEFAULT_PARAMS, ...PRESETS.struct37.params },
   alpha,
+  MARKET,
 );
 
 function pack(s: SpecReport) {

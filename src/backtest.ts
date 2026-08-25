@@ -1,5 +1,5 @@
 import { buildIntraday, openingRange } from "./intraday";
-import { atrExpandRatio, atrSeries, ATR_EXPAND_K, barIndex, MA20, MARKET } from "./market";
+import { atrExpandRatio, ATR_EXPAND_K, gapClose, MARKET, type MarketCtx } from "./market";
 import {
   daysToSettlement,
   isSettlement,
@@ -107,19 +107,21 @@ export function evaluateDayTrade(
   recentOr: number[],
   params: LabParams,
   minutes?: MinuteBar[],
+  market: MarketCtx = MARKET,
 ): DayEval {
   const path = minutes ?? buildIntraday(day, prevClose, params.seedOffset ?? 0);
   const or = openingRange(path, params.probeMin);
   const orWidth = Math.max(1, or.high - or.low);
-  const gapPts = day.o - prevClose;
-  const gapPct = gapPts / prevClose;
+  const gapRef = gapClose(day, prevClose);
+  const gapPts = day.o - gapRef;
+  const gapPct = gapPts / gapRef;
   const vwapAtProbe = path[or.end]?.vwap ?? day.o;
   const settle = isSettlement(day.d);
   const flow = foreignBias(day.d);
-  const idx = barIndex(day.d);
-  const maPrev = idx > 0 ? MA20[idx - 1] : prevClose;
+  const idx = market.indexByDate.get(day.d) ?? -1;
+  const maPrev = idx > 0 ? market.MA20[idx - 1] : prevClose;
   const aboveMa = prevClose >= maPrev;
-  const expand = atrExpandRatio(idx);
+  const expand = atrExpandRatio(idx, market);
   const dow = weekdayUtc(day.d);
   const dts = daysToSettlement(day.d);
   const gap = resolveGap(params);
@@ -273,13 +275,23 @@ export function evaluateDayTrade(
   return { ...base, skipped: null, trade };
 }
 
-export function skipCounts(params: LabParams): Record<string, number> {
-  const bars = MARKET.bars;
-  const atr = atrSeries(bars, 20);
+export function skipCounts(
+  params: LabParams,
+  market: MarketCtx = MARKET,
+): Record<string, number> {
+  const bars = market.bars;
   const recentOr: number[] = [];
   const counts: Record<string, number> = {};
-  for (let i = 1; i < bars.length; i++) {
-    const ev = evaluateDayTrade(bars[i], bars[i - 1].c, atr[i], recentOr, params);
+  for (let i = market.startIdx; i < bars.length; i++) {
+    const ev = evaluateDayTrade(
+      bars[i],
+      bars[i - 1].c,
+      market.ATR20[i],
+      recentOr,
+      params,
+      undefined,
+      market,
+    );
     recentOr.push(ev.orWidth);
     if (recentOr.length > 20) recentOr.shift();
     const key = ev.trade ? "進場" : (ev.skipped ?? "未進場");
@@ -290,25 +302,34 @@ export function skipCounts(params: LabParams): Record<string, number> {
 
 export function runBacktest(
   params: LabParams = DEFAULT_PARAMS,
+  market: MarketCtx = MARKET,
 ): BacktestResult {
-  const bars = MARKET.bars;
-  const atr = atrSeries(bars, 20);
+  const bars = market.bars;
   const recentOr: number[] = [];
   const trades: Trade[] = [];
   let skipped = 0;
   let equity = params.capital;
+  const start = market.startIdx;
   const equityCurve: BacktestResult["equity"] = [
-    { date: bars[0]?.d ?? "", equity, dd: 0 },
+    { date: bars[start - 1]?.d ?? bars[0]?.d ?? "", equity, dd: 0 },
   ];
   let peak = equity;
   let maxDd = 0;
   let maxDdPct = 0;
   const monthlyMap = new Map<string, MonthlyCell>();
 
-  for (let i = 1; i < bars.length; i++) {
+  for (let i = start; i < bars.length; i++) {
     const day = bars[i];
     const prev = bars[i - 1];
-    const ev = evaluateDayTrade(day, prev.c, atr[i], recentOr, params);
+    const ev = evaluateDayTrade(
+      day,
+      prev.c,
+      market.ATR20[i],
+      recentOr,
+      params,
+      undefined,
+      market,
+    );
     recentOr.push(ev.orWidth);
     if (recentOr.length > 20) recentOr.shift();
 
@@ -349,8 +370,8 @@ export function runBacktest(
   const grossWin = wins.reduce((s, t) => s + t.pnlTwd, 0);
   const grossLoss = Math.abs(losses.reduce((s, t) => s + t.pnlTwd, 0));
   const netPnl = equity - params.capital;
-  const firstDate = bars[0]?.d ?? MARKET.asOf;
-  const lastDate = bars[bars.length - 1]?.d ?? MARKET.asOf;
+  const firstDate = bars[start]?.d ?? market.asOf;
+  const lastDate = bars[bars.length - 1]?.d ?? market.asOf;
   const years = Math.max(
     0.15,
     (Date.parse(lastDate) - Date.parse(firstDate)) / (365.25 * 86400000),
@@ -381,8 +402,8 @@ export function runBacktest(
     } else consec = 0;
   }
 
-  const taiexBase = bars[0].c;
-  const taiex = bars.map((b) => ({
+  const taiexBase = bars[start].c;
+  const taiex = bars.slice(start).map((b) => ({
     date: b.d,
     ret: b.c / taiexBase - 1,
   }));
@@ -443,7 +464,7 @@ export function runBacktest(
           ? grossWin / wins.length / (grossLoss / losses.length)
           : 0,
       skipped,
-      days: bars.length - 1,
+      days: bars.length - start,
       bestDay: trades.reduce((m, t) => Math.max(m, t.pnlTwd), 0),
       worstDay: trades.reduce((m, t) => Math.min(m, t.pnlTwd), 0),
       maxConsecLoss,
@@ -459,28 +480,35 @@ export function runBacktest(
 
 const memo = new Map<string, BacktestResult>();
 
-export function runLab(params: LabParams): BacktestResult {
-  const key = JSON.stringify(params);
+export function runLab(
+  params: LabParams,
+  market: MarketCtx = MARKET,
+): BacktestResult {
+  const key = market.id + JSON.stringify(params);
   const hit = memo.get(key);
   if (hit) return hit;
-  const result = runBacktest(params);
+  const result = runBacktest(params, market);
   memo.set(key, result);
   return result;
 }
 
-export function todayEval(params: LabParams): DayEval | null {
-  const bars = MARKET.bars;
+export function todayEval(
+  params: LabParams,
+  market: MarketCtx = MARKET,
+): DayEval | null {
+  const bars = market.bars;
   if (bars.length < 2) return null;
-  const atr = atrSeries(bars, 20);
   const recentOr: number[] = [];
-  const start = Math.max(1, bars.length - 21);
+  const start = Math.max(market.startIdx, bars.length - 21);
   for (let i = start; i < bars.length - 1; i++) {
     const ev = evaluateDayTrade(
       bars[i],
       bars[i - 1].c,
-      atr[i],
+      market.ATR20[i],
       recentOr,
       params,
+      undefined,
+      market,
     );
     recentOr.push(ev.orWidth);
     if (recentOr.length > 20) recentOr.shift();
@@ -490,32 +518,44 @@ export function todayEval(params: LabParams): DayEval | null {
   return evaluateDayTrade(
     last,
     prev.c,
-    atr[bars.length - 1],
+    market.ATR20[bars.length - 1],
     recentOr,
     params,
+    undefined,
+    market,
   );
 }
 
 export function evalOnDate(
   date: string,
   params: LabParams,
+  market: MarketCtx = MARKET,
 ): DayEval | null {
-  const bars = MARKET.bars;
-  const idx = bars.findIndex((b) => b.d === date);
-  if (idx < 1) return todayEval(params);
-  const atr = atrSeries(bars, 20);
+  const bars = market.bars;
+  const idx = market.indexByDate.get(date) ?? -1;
+  if (idx < 1) return todayEval(params, market);
   const recentOr: number[] = [];
-  const start = Math.max(1, idx - 20);
+  const start = Math.max(market.startIdx, idx - 20);
   for (let i = start; i < idx; i++) {
     const ev = evaluateDayTrade(
       bars[i],
       bars[i - 1].c,
-      atr[i],
+      market.ATR20[i],
       recentOr,
       params,
+      undefined,
+      market,
     );
     recentOr.push(ev.orWidth);
     if (recentOr.length > 20) recentOr.shift();
   }
-  return evaluateDayTrade(bars[idx], bars[idx - 1].c, atr[idx], recentOr, params);
+  return evaluateDayTrade(
+    bars[idx],
+    bars[idx - 1].c,
+    market.ATR20[idx],
+    recentOr,
+    params,
+    undefined,
+    market,
+  );
 }

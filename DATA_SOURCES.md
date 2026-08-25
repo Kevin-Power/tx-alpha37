@@ -10,7 +10,7 @@ FinMind `TaiwanFuturesDaily` 匿名 API 抓完 2012-01-02 → 2026-08-25（`data
 近月＝最小 contract_date 有量者、缺口用同合約昨收（fallback 次數 0）。
 
 判決見 RESEARCH.md 10.5：週三漂移＝假象（殺）、日盤淨漂移為負（隔夜 109%）、缺口濾網 TX vs TWII 錯位 89/37 天。
-**剩餘工程：把 `src/market.ts` 換成（或並列）TX 序列，全部 KPI 重算。**
+**H-04 已完成：** `src/market.ts` 並列 `MARKETS.twii`／`MARKETS.tx`，預設 TX。H-06 通過條件失敗，結構37 沒加分。見 RESEARCH.md §5.8、`results/h04-tx.json`。
 
 | 來源 | 內容 | 起始 | 費用 | 備註 |
 | --- | --- | --- | --- | --- |

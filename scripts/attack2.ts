@@ -1,5 +1,6 @@
 /** 週三漂移深挖 + 隔夜/日內分解（全部 A 層，真實日 K）。 */
-import { MARKET } from "../src/market";
+import { MARKETS } from "../src/market";
+const MARKET = MARKETS.twii;
 import { isSettlement, weekdayUtc, OOS_SPLIT } from "../src/calendar";
 import type { DailyBar } from "../src/types";
 

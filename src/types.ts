@@ -4,6 +4,8 @@ export type DailyBar = {
   h: number;
   l: number;
   c: number;
+  /** TX：同合約昨收。缺口與 ATR 用這個，避免轉倉跳空。TWII 沒有。 */
+  prevSameC?: number | null;
 };
 
 export type MinuteBar = {
@@ -22,6 +24,8 @@ export type ContractCode = "TMF" | "MTX" | "TX";
 
 /** 日曆濾網：全部 / 避開週一週三 / 只做週四週五 / 只做週五。 */
 export type WeekdayMode = "all" | "skipMonWed" | "thuFri" | "friday";
+
+export type MarketId = "twii" | "tx";
 
 export type LabParams = {
   probeMin: number;

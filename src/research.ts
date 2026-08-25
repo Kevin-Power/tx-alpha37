@@ -1,6 +1,6 @@
 import { runLab, skipCounts } from "./backtest";
 import { OOS_SPLIT, weekdayUtc } from "./calendar";
-import { atrExpandRatio, ATR_EXPAND_K, barIndex, MA20, MARKET } from "./market";
+import { atrExpandRatio, ATR_EXPAND_K, MARKET, type MarketCtx } from "./market";
 import { DEFAULT_PARAMS, withGap } from "./specs";
 import type {
   BacktestResult,
@@ -10,7 +10,10 @@ import type {
   WindowKpis,
 } from "./types";
 
-function sliceKpi(trades: Trade[]): Omit<ResearchSlice, "id" | "label" | "hint"> {
+function sliceKpi(
+  trades: Trade[],
+  market: MarketCtx = MARKET,
+): Omit<ResearchSlice, "id" | "label" | "hint"> {
   const wins = trades.filter((t) => t.pnlTwd > 0);
   const losses = trades.filter((t) => t.pnlTwd <= 0);
   const gw = wins.reduce((s, t) => s + t.pnlTwd, 0);
@@ -24,8 +27,8 @@ function sliceKpi(trades: Trade[]): Omit<ResearchSlice, "id" | "label" | "hint">
     if (eq > peak) peak = eq;
     maxDd = Math.max(maxDd, peak > 0 ? (peak - eq) / peak : 0);
   }
-  const first = MARKET.bars[0]?.d ?? MARKET.asOf;
-  const last = MARKET.bars[MARKET.bars.length - 1]?.d ?? MARKET.asOf;
+  const first = market.tradeFrom;
+  const last = market.asOf;
   const years = Math.max(
     0.15,
     (Date.parse(last) - Date.parse(first)) / (365.25 * 86400000),
@@ -55,12 +58,12 @@ type Tag = {
   aboveMa: boolean;
 };
 
-function tagTrades(params: LabParams): Tag[] {
-  const result = runLab(params);
+function tagTrades(params: LabParams, market: MarketCtx = MARKET): Tag[] {
+  const result = runLab(params, market);
   return result.trades.map((t) => {
-    const i = barIndex(t.date);
-    const prev = MARKET.bars[Math.max(0, i - 1)];
-    const ma = i > 0 ? MA20[i - 1] : prev.c;
+    const i = market.indexByDate.get(t.date) ?? -1;
+    const prev = market.bars[Math.max(0, i - 1)];
+    const ma = i > 0 ? market.MA20[i - 1] : prev.c;
     return {
       t,
       dow: weekdayUtc(t.date),
@@ -70,8 +73,8 @@ function tagTrades(params: LabParams): Tag[] {
 }
 
 /** ALPHA-37 的日線切片。這些不用 1 分重建，可信度較高。 */
-export function dailySlices(): ResearchSlice[] {
-  const tagged = tagTrades(DEFAULT_PARAMS);
+export function dailySlices(market: MarketCtx = MARKET): ResearchSlice[] {
+  const tagged = tagTrades(DEFAULT_PARAMS, market);
   const rows: [string, string, string, (x: Tag) => boolean][] = [
     [
       "all",
@@ -108,17 +111,17 @@ export function dailySlices(): ResearchSlice[] {
     id,
     label,
     hint,
-    ...sliceKpi(tagged.filter(pred).map((x) => x.t)),
+    ...sliceKpi(tagged.filter(pred).map((x) => x.t), market),
   }));
 }
 
 const sliceMemo = { key: "", rows: [] as ResearchSlice[] };
 
-export function dailySlicesMemo(): ResearchSlice[] {
-  const key = MARKET.asOf + String(MARKET.bars.length);
+export function dailySlicesMemo(market: MarketCtx = MARKET): ResearchSlice[] {
+  const key = market.id + market.asOf + String(market.bars.length);
   if (sliceMemo.key === key) return sliceMemo.rows;
   sliceMemo.key = key;
-  sliceMemo.rows = dailySlices();
+  sliceMemo.rows = dailySlices(market);
   return sliceMemo.rows;
 }
 
@@ -166,7 +169,7 @@ export function windowKpis(
       rets.push(a > 0 ? (eq - a) / a : 0);
     }
   }
-  const firstDate = eqPts[0]?.date ?? MARKET.bars[0]?.d ?? MARKET.asOf;
+  const firstDate = eqPts[0]?.date ?? MARKET.tradeFrom;
   const lastDate = eqPts[eqPts.length - 1]?.date ?? MARKET.asOf;
   const years = Math.max(
     0.08,
@@ -245,9 +248,10 @@ export function reportSpec(
   hint: string,
   params: LabParams,
   alpha?: BacktestResult,
+  market: MarketCtx = MARKET,
 ): SpecReport {
-  const result = runLab(params);
-  const ref = alpha ?? runLab(DEFAULT_PARAMS);
+  const result = runLab(params, market);
+  const ref = alpha ?? runLab(DEFAULT_PARAMS, market);
   const full = windowKpis(result, "全樣本", () => true);
   const isW = windowKpis(result, "樣本內", (d) => d < OOS_SPLIT);
   const oos = windowKpis(result, "樣本外", (d) => d >= OOS_SPLIT);
@@ -279,7 +283,7 @@ export function reportSpec(
     })),
     long: sideWindow(result.trades, "多", "long"),
     short: sideWindow(result.trades, "空", "short"),
-    skip: skipCounts(params),
+    skip: skipCounts(params, market),
     vsAlpha: {
       dN: full.n - aFull.n,
       dPf: full.pf - aFull.pf,
@@ -321,10 +325,10 @@ export function h06Specs(): {
   ];
 }
 
-export function h06Reports(): SpecReport[] {
-  const alpha = runLab(DEFAULT_PARAMS);
+export function h06Reports(market: MarketCtx = MARKET): SpecReport[] {
+  const alpha = runLab(DEFAULT_PARAMS, market);
   return h06Specs().map((s) =>
-    reportSpec(s.id, s.label, s.hint, s.params, alpha),
+    reportSpec(s.id, s.label, s.hint, s.params, alpha, market),
   );
 }
 
@@ -357,10 +361,10 @@ export function h11Specs(): {
   ];
 }
 
-export function h11Reports(): SpecReport[] {
-  const alpha = runLab(DEFAULT_PARAMS);
+export function h11Reports(market: MarketCtx = MARKET): SpecReport[] {
+  const alpha = runLab(DEFAULT_PARAMS, market);
   return h11Specs().map((s) =>
-    reportSpec(s.id, s.label, s.hint, s.params, alpha),
+    reportSpec(s.id, s.label, s.hint, s.params, alpha, market),
   );
 }
 
@@ -378,15 +382,15 @@ export type AtrExpandDist = {
 };
 
 /** 開盤前已知的 ATR20/ATR60 分布。H-11 用來證明 2.0 有沒有開火，不是拿來改門檻。 */
-export function atrExpandDist(): AtrExpandDist {
+export function atrExpandDist(market: MarketCtx = MARKET): AtrExpandDist {
   const ratios: number[] = [];
   let nBelowMa = 0;
   let nAtK = 0;
-  for (let i = 1; i < MARKET.bars.length; i++) {
-    const r = atrExpandRatio(i);
+  for (let i = market.startIdx; i < market.bars.length; i++) {
+    const r = atrExpandRatio(i, market);
     ratios.push(r);
-    const prev = MARKET.bars[i - 1];
-    const ma = MA20[i - 1];
+    const prev = market.bars[i - 1];
+    const ma = market.MA20[i - 1];
     if (prev.c < ma) nBelowMa += 1;
     if (r >= ATR_EXPAND_K) nAtK += 1;
   }

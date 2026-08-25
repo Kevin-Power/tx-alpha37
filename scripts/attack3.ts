@@ -1,6 +1,7 @@
 /** 種子擾動加大到 60 條，確認 seed0（repo 原始路徑）的百分位。 */
 import { evaluateDayTrade } from "../src/backtest";
-import { atrSeries, MARKET } from "../src/market";
+import { atrSeries, MARKETS } from "../src/market";
+const MARKET = MARKETS.twii;
 import { OOS_SPLIT, weekdayUtc } from "../src/calendar";
 import { DEFAULT_PARAMS, PRESETS, SESSION } from "../src/specs";
 import { hashDate, mulberry32 } from "../src/rng";
@@ -107,7 +108,7 @@ function runTrades(params: LabParams, seedOffset: number): Trade[] {
   const out: Trade[] = [];
   for (let i = 1; i < bars.length; i++) {
     const minutes = seedOffset === 0 ? undefined : buildIntradaySeed(bars[i], bars[i - 1].c, seedOffset);
-    const ev = evaluateDayTrade(bars[i], bars[i - 1].c, atr[i], recentOr, params, minutes);
+    const ev = evaluateDayTrade(bars[i], bars[i - 1].c, atr[i], recentOr, params, minutes, MARKET);
     recentOr.push(ev.orWidth);
     if (recentOr.length > 20) recentOr.shift();
     if (ev.trade) out.push(ev.trade);

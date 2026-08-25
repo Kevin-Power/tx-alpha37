@@ -1,6 +1,6 @@
 import { runLab } from "../src/backtest.ts";
 import { dailySlices, h06Reports, reportSpec, windowKpis } from "../src/research.ts";
-import { MARKET } from "../src/market.ts";
+import { MARKET, MARKETS } from "../src/market.ts";
 import { DEFAULT_PARAMS, PRESETS } from "../src/specs.ts";
 import { OOS_SPLIT } from "../src/calendar.ts";
 
@@ -12,8 +12,16 @@ function pf(x: number) {
   return x.toFixed(3);
 }
 
+const twiiAlpha = runLab(DEFAULT_PARAMS, MARKETS.twii);
+const twiiStruct = runLab(
+  { ...DEFAULT_PARAMS, ...PRESETS.struct37.params },
+  MARKETS.twii,
+);
 console.log(
-  `TWII ${MARKET.asOf}  bars=${MARKET.bars.length}  ${MARKET.bars[0]?.d} → ${MARKET.bars[MARKET.bars.length - 1]?.d}  OOS≥${OOS_SPLIT}`,
+  `${MARKET.id.toUpperCase()} ${MARKET.asOf}  bars=${MARKET.bars.length}  tradeFrom=${MARKET.tradeFrom}  ${MARKET.bars[MARKET.startIdx]?.d} → ${MARKET.bars[MARKET.bars.length - 1]?.d}  OOS≥${OOS_SPLIT}`,
+);
+console.log(
+  `TWII replication alpha n=${twiiAlpha.kpis.trades} PF=${twiiAlpha.kpis.profitFactor.toFixed(3)}  struct n=${twiiStruct.kpis.trades} PF=${twiiStruct.kpis.profitFactor.toFixed(3)}`,
 );
 console.log("");
 console.log(

@@ -7,7 +7,8 @@
  * E. 結構37 增量驗屍：MA20 濾網到底刪掉了哪些月份的虧損。
  */
 import { evaluateDayTrade } from "../src/backtest";
-import { atrSeries, MARKET } from "../src/market";
+import { atrSeries, MARKETS } from "../src/market";
+const MARKET = MARKETS.twii;
 import { OOS_SPLIT, weekdayUtc } from "../src/calendar";
 import { DEFAULT_PARAMS, PRESETS, SESSION } from "../src/specs";
 import { hashDate, mulberry32 } from "../src/rng";
@@ -175,7 +176,7 @@ function runWith(params: LabParams, seedOffset: number): Rec[] {
     const prev = bars[i - 1];
     const minutes =
       seedOffset === 0 ? undefined : buildIntradaySeed(day, prev.c, seedOffset);
-    const ev = evaluateDayTrade(day, prev.c, atr[i], recentOr, params, minutes);
+    const ev = evaluateDayTrade(day, prev.c, atr[i], recentOr, params, minutes, MARKET);
     recentOr.push(ev.orWidth);
     if (recentOr.length > 20) recentOr.shift();
     if (ev.trade) {
