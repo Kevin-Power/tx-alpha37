@@ -1,0 +1,502 @@
+{
+  "generatedAt": "2026-08-26",
+  "experiment": "H-02",
+  "definition": {
+    "layer": "A×C（交易損益）+ A（o→c）",
+    "pass": "2025 與 2026 週五 PF>1，多空都 PF>1，≥70% 種子週五 PF>其餘四天",
+    "kill": "2025 週五 PF<1，或只在多單（空單 PF<1 且多單 PF>1）",
+    "seeds": 20,
+    "primary": "tx",
+    "notTuned": true
+  },
+  "verdict": {
+    "pass": false,
+    "kill": false,
+    "seed0Pass": true,
+    "seed0Kill": false,
+    "nPass": 4,
+    "nKill": 16,
+    "nFriBeats": 12,
+    "n2025gt1": 7,
+    "nBothSides": 6,
+    "call": "INCONCLUSIVE：seed0 會過原文 keep 不等式，但種子過不了。「週五拿走七成」不是種子穩健的事實。不准把 friday preset 當結論。"
+  },
+  "seed0": {
+    "all": {
+      "n": 271,
+      "win": 97,
+      "wr": 0.3579,
+      "pf": 1.061,
+      "pnl": 63228
+    },
+    "fri": {
+      "n": 48,
+      "win": 19,
+      "wr": 0.3958,
+      "pf": 1.297,
+      "pnl": 49409
+    },
+    "rest": {
+      "n": 223,
+      "win": 78,
+      "wr": 0.3498,
+      "pf": 1.016,
+      "pnl": 13819
+    },
+    "share": 0.7814,
+    "y2024": {
+      "n": 10,
+      "win": 2,
+      "wr": 0.2,
+      "pf": 0.358,
+      "pnl": -24425
+    },
+    "y2025": {
+      "n": 29,
+      "win": 12,
+      "wr": 0.4138,
+      "pf": 1.065,
+      "pnl": 6473
+    },
+    "y2026": {
+      "n": 9,
+      "win": 5,
+      "wr": 0.5556,
+      "pf": 3.3,
+      "pnl": 67361
+    },
+    "oos": {
+      "n": 20,
+      "win": 8,
+      "wr": 0.4,
+      "pf": 1.591,
+      "pnl": 44923
+    },
+    "longs": {
+      "n": 21,
+      "win": 9,
+      "wr": 0.4286,
+      "pf": 1.413,
+      "pnl": 28639
+    },
+    "shorts": {
+      "n": 27,
+      "win": 10,
+      "wr": 0.3704,
+      "pf": 1.213,
+      "pnl": 20771
+    },
+    "postSettleFri": {
+      "n": 10,
+      "win": 3,
+      "wr": 0.3,
+      "pf": 0.332,
+      "pnl": -29419
+    },
+    "otherFri": {
+      "n": 38,
+      "win": 16,
+      "wr": 0.4211,
+      "pf": 1.643,
+      "pnl": 78828
+    },
+    "y2025Gt1": true,
+    "y2026Gt1": true,
+    "bothSides": true,
+    "longOnly": false,
+    "friBeatsRest": true
+  },
+  "twii0": {
+    "fri": {
+      "n": 63,
+      "win": 26,
+      "wr": 0.4127,
+      "pf": 1.632,
+      "pnl": 134411
+    },
+    "rest": {
+      "n": 269,
+      "win": 96,
+      "wr": 0.3569,
+      "pf": 1.049,
+      "pnl": 52254
+    },
+    "share": 0.7201,
+    "y2025": {
+      "n": 34,
+      "win": 15,
+      "wr": 0.4412,
+      "pf": 1.621,
+      "pnl": 65844
+    },
+    "y2026": {
+      "n": 20,
+      "win": 9,
+      "wr": 0.45,
+      "pf": 2.1,
+      "pnl": 76030
+    },
+    "longs": {
+      "n": 26,
+      "win": 10,
+      "wr": 0.3846,
+      "pf": 1.499,
+      "pnl": 43926
+    },
+    "shorts": {
+      "n": 37,
+      "win": 16,
+      "wr": 0.4324,
+      "pf": 1.727,
+      "pnl": 90485
+    },
+    "pass": true,
+    "kill": false
+  },
+  "seeds": [
+    {
+      "seed": 0,
+      "friPf": 1.297,
+      "restPf": 1.016,
+      "share": 0.7814,
+      "y2025": 1.065,
+      "y2026": 3.3,
+      "longPf": 1.413,
+      "shortPf": 1.213,
+      "pass": true,
+      "kill": false
+    },
+    {
+      "seed": 1,
+      "friPf": 1.356,
+      "restPf": 0.949,
+      "share": 5.6279,
+      "y2025": 2.194,
+      "y2026": 1.058,
+      "longPf": 1.646,
+      "shortPf": 0.939,
+      "pass": false,
+      "kill": true
+    },
+    {
+      "seed": 2,
+      "friPf": 1.056,
+      "restPf": 1.196,
+      "share": 0.0544,
+      "y2025": 0.58,
+      "y2026": 2.858,
+      "longPf": 1.1,
+      "shortPf": 1.012,
+      "pass": false,
+      "kill": true
+    },
+    {
+      "seed": 3,
+      "friPf": 1.003,
+      "restPf": 0.985,
+      "share": -0.0451,
+      "y2025": 0.46,
+      "y2026": 2.011,
+      "longPf": 0.819,
+      "shortPf": 1.221,
+      "pass": false,
+      "kill": true
+    },
+    {
+      "seed": 4,
+      "friPf": 0.851,
+      "restPf": 1.04,
+      "share": -8.6321,
+      "y2025": 0.932,
+      "y2026": 0.964,
+      "longPf": 1.139,
+      "shortPf": 0.523,
+      "pass": false,
+      "kill": true
+    },
+    {
+      "seed": 5,
+      "friPf": 1.167,
+      "restPf": 0.895,
+      "share": -0.3634,
+      "y2025": 0.936,
+      "y2026": 2.785,
+      "longPf": 1.143,
+      "shortPf": 1.189,
+      "pass": false,
+      "kill": true
+    },
+    {
+      "seed": 6,
+      "friPf": 1.392,
+      "restPf": 0.829,
+      "share": -0.5289,
+      "y2025": 1.315,
+      "y2026": 2.311,
+      "longPf": 1.349,
+      "shortPf": 1.44,
+      "pass": true,
+      "kill": false
+    },
+    {
+      "seed": 7,
+      "friPf": 1.275,
+      "restPf": 1.134,
+      "share": 0.2906,
+      "y2025": 1.322,
+      "y2026": 1.87,
+      "longPf": 1.109,
+      "shortPf": 1.419,
+      "pass": true,
+      "kill": false
+    },
+    {
+      "seed": 8,
+      "friPf": 0.793,
+      "restPf": 0.64,
+      "share": 0.1005,
+      "y2025": 0.692,
+      "y2026": 0.272,
+      "longPf": 1.228,
+      "shortPf": 0.51,
+      "pass": false,
+      "kill": true
+    },
+    {
+      "seed": 9,
+      "friPf": 1.465,
+      "restPf": 0.756,
+      "share": -0.5062,
+      "y2025": 1.16,
+      "y2026": 2.851,
+      "longPf": 1.24,
+      "shortPf": 1.639,
+      "pass": true,
+      "kill": false
+    },
+    {
+      "seed": 10,
+      "friPf": 0.844,
+      "restPf": 0.677,
+      "share": 0.0775,
+      "y2025": 0.325,
+      "y2026": 1.49,
+      "longPf": 1.868,
+      "shortPf": 0.511,
+      "pass": false,
+      "kill": true
+    },
+    {
+      "seed": 11,
+      "friPf": 0.77,
+      "restPf": 1.086,
+      "share": -1.1896,
+      "y2025": 0.637,
+      "y2026": 1.231,
+      "longPf": 0.721,
+      "shortPf": 0.811,
+      "pass": false,
+      "kill": true
+    },
+    {
+      "seed": 12,
+      "friPf": 0.884,
+      "restPf": 1.101,
+      "share": -0.3701,
+      "y2025": 1.006,
+      "y2026": 1.784,
+      "longPf": 1.544,
+      "shortPf": 0.576,
+      "pass": false,
+      "kill": true
+    },
+    {
+      "seed": 13,
+      "friPf": 1.05,
+      "restPf": 0.999,
+      "share": 1.0562,
+      "y2025": 0.522,
+      "y2026": 2.573,
+      "longPf": 1.256,
+      "shortPf": 0.896,
+      "pass": false,
+      "kill": true
+    },
+    {
+      "seed": 14,
+      "friPf": 0.705,
+      "restPf": 1.086,
+      "share": -1.9101,
+      "y2025": 0.874,
+      "y2026": 0.388,
+      "longPf": 0.966,
+      "shortPf": 0.43,
+      "pass": false,
+      "kill": true
+    },
+    {
+      "seed": 15,
+      "friPf": 0.616,
+      "restPf": 0.84,
+      "share": 0.3898,
+      "y2025": 0.721,
+      "y2026": 0.733,
+      "longPf": 0.877,
+      "shortPf": 0.293,
+      "pass": false,
+      "kill": true
+    },
+    {
+      "seed": 16,
+      "friPf": 0.713,
+      "restPf": 0.87,
+      "share": 0.3096,
+      "y2025": 0.658,
+      "y2026": 0.908,
+      "longPf": 1.185,
+      "shortPf": 0.374,
+      "pass": false,
+      "kill": true
+    },
+    {
+      "seed": 17,
+      "friPf": 0.702,
+      "restPf": 1.091,
+      "share": -1.549,
+      "y2025": 0.598,
+      "y2026": 0.976,
+      "longPf": 0.798,
+      "shortPf": 0.591,
+      "pass": false,
+      "kill": true
+    },
+    {
+      "seed": 18,
+      "friPf": 1.501,
+      "restPf": 1.153,
+      "share": 0.3428,
+      "y2025": 1.307,
+      "y2026": 5.892,
+      "longPf": 1.945,
+      "shortPf": 0.937,
+      "pass": false,
+      "kill": true
+    },
+    {
+      "seed": 19,
+      "friPf": 1.101,
+      "restPf": 0.981,
+      "share": -377.4783,
+      "y2025": 0.344,
+      "y2026": 3.344,
+      "longPf": 0.954,
+      "shortPf": 1.301,
+      "pass": false,
+      "kill": true
+    }
+  ],
+  "real1m": {
+    "available": true,
+    "nDays": 30,
+    "nFriDays": 6,
+    "real": {
+      "fri": {
+        "n": 4,
+        "win": 3,
+        "wr": 0.75,
+        "pf": 2.613,
+        "pnl": 15142
+      },
+      "rest": {
+        "n": 18,
+        "win": 5,
+        "wr": 0.2778,
+        "pf": 1.138,
+        "pnl": 13638
+      }
+    },
+    "syn": {
+      "fri": {
+        "n": 2,
+        "win": 0,
+        "wr": 0,
+        "pf": 0,
+        "pnl": -16236
+      },
+      "rest": {
+        "n": 13,
+        "win": 4,
+        "wr": 0.3077,
+        "pf": 1.049,
+        "pnl": 2863
+      }
+    },
+    "note": "n≈6 個週五，不是 H-02 通過／殺掉"
+  },
+  "aLayerOc": {
+    "window": {
+      "週一": {
+        "n": 100,
+        "nPos": 51,
+        "meanOc": 36,
+        "meanBp": 7.99
+      },
+      "週二": {
+        "n": 102,
+        "nPos": 46,
+        "meanOc": -27.8,
+        "meanBp": -6.17
+      },
+      "週三": {
+        "n": 100,
+        "nPos": 56,
+        "meanOc": 5,
+        "meanBp": 1.11
+      },
+      "週四": {
+        "n": 93,
+        "nPos": 38,
+        "meanOc": -47.2,
+        "meanBp": -10.48
+      },
+      "週五": {
+        "n": 90,
+        "nPos": 47,
+        "meanOc": 13.2,
+        "meanBp": 2.93
+      }
+    },
+    "full2012": {
+      "週一": {
+        "n": 707,
+        "nPos": 365,
+        "meanOc": 6.5,
+        "meanBp": 1.44
+      },
+      "週二": {
+        "n": 727,
+        "nPos": 365,
+        "meanOc": -3.1,
+        "meanBp": -0.69
+      },
+      "週三": {
+        "n": 725,
+        "nPos": 388,
+        "meanOc": 4.7,
+        "meanBp": 1.05
+      },
+      "週四": {
+        "n": 714,
+        "nPos": 363,
+        "meanOc": -7.6,
+        "meanBp": -1.69
+      },
+      "週五": {
+        "n": 693,
+        "nPos": 349,
+        "meanOc": -0.9,
+        "meanBp": -0.21
+      }
+    }
+  }
+}

@@ -32,7 +32,7 @@
 
 **ORB-15 看起來最好，請當假象。** 論文用真 1 分 K 選的是 37 分，不是 15 分。本倉的 1 分路徑是日線重建，且已證實結構性偏惠短探針＋固定停利（20/20 種子）。**2026-08-25 起有真實資料佐證**：期交所 30 日逐筆聚合的 29 個真實日上，重建器把 OR 寬度做窄約一半（中位 2.03×）、把 ORB-15 停利命中率從 48% 灌到 71%（§5.11、`data/tx-1min.json`）。
 
-被推翻：跳過月結算週三、外資水位、0.55 缺口順勢、ATR 擴張 2.0、≥ 0.8 ATR 放假當已確認法則（H-04）、結構37 避震器（H-05）、MA20 跨星期結構（H-07）。真正差的是**結算週的週一**（19 筆 PF 0.17）。沒有新預設。
+被推翻：跳過月結算週三、結算週週一（H-03）、外資水位、0.55 缺口順勢、ATR 擴張 2.0、≥ 0.8 ATR 放假當已確認法則（H-04）、結構37 避震器（H-05）、MA20 跨星期結構（H-07）。週五不採納（H-02）。沒有新預設。
 
 已降級（2026-08-25 種子擾動攻擊輪）：ALPHA-37 濾網「救成勉強賺」→ 未證實；結構37 → 體制依賴（MA 單調性測試失敗）；週五 edge → 未證實（PF 1.63 是 60 條路徑最大值）。資料升級路線見 [DATA_SOURCES.md](./DATA_SOURCES.md)。
 
@@ -50,6 +50,8 @@ scripts/h05-autopsy.ts 大虧月驗屍
 scripts/h07-ma.ts    MA20 × weekday
 scripts/h01-real1m.ts  30 日真 1 分 vs 重建
 scripts/h01-probegrid.ts 探針網格診斷（不是 H-01 通過）
+scripts/h02-friday.ts    週五（不採納）
+scripts/h03-settle-mon.ts 結算週週一（殺掉）
 scripts/h01-fetch.py   Linux 抓期交所 30 日 zip
 ```
 
@@ -64,6 +66,8 @@ npx --yes tsx scripts/h05-autopsy.ts
 npx --yes tsx scripts/h07-ma.ts
 npx --yes tsx scripts/h01-real1m.ts
 npx --yes tsx scripts/h01-probegrid.ts
+npx --yes tsx scripts/h02-friday.ts
+npx --yes tsx scripts/h03-settle-mon.ts
 ```
 
 ## 文獻
