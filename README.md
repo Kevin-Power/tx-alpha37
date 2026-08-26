@@ -48,6 +48,9 @@ scripts/run.ts       重跑預設組合（TX）
 scripts/h04-tx.ts    TX 真開盤價
 scripts/h05-autopsy.ts 大虧月驗屍
 scripts/h07-ma.ts    MA20 × weekday
+scripts/h01-real1m.ts  30 日真 1 分 vs 重建
+scripts/h01-probegrid.ts 探針網格診斷（不是 H-01 通過）
+scripts/h01-fetch.py   Linux 抓期交所 30 日 zip
 ```
 
 ## 重跑
@@ -59,6 +62,8 @@ npx --yes tsx scripts/h11-atr.ts
 npx --yes tsx scripts/h04-tx.ts
 npx --yes tsx scripts/h05-autopsy.ts
 npx --yes tsx scripts/h07-ma.ts
+npx --yes tsx scripts/h01-real1m.ts
+npx --yes tsx scripts/h01-probegrid.ts
 ```
 
 ## 文獻
@@ -67,6 +72,6 @@ Tsai et al., *Assessing the Profitability of Timely Opening Range Breakout on In
 
 ## 這不是投資建議
 
-真的下單前，用券商／期交所 **真實 1 分 K** 把同一套法則再跑一次。本倉日線預設是 TX 近月，1 分 K 仍是重建路徑。
+真的下單前，用券商／期交所 **真實 1 分 K** 把同一套法則再跑一次。本倉已有滾動 30 日真 1 分（`data/tx-1min.json`），只夠校準重建器，不夠當 H-01 通過。日線預設是 TX 近月。
 
 Repo: https://github.com/Kevin-Power/tx-alpha37

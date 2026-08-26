@@ -114,7 +114,7 @@ ORB-15 全樣本 PF 1.58、Sharpe 2.55、樣本外 PF 2.09——這是 C 層假�
 
 優先順序：
 
-1. **攻擊**現有結論。H-04／H-05／H-07／H-11 已把結構37 的主要故事殺掉。下一步最值得攻的是真 1 分（H-01；目前被資料擋住）與週五（H-02）。不要再提案「怎麼做比較賺」。
+1. **攻擊**現有結論。H-04／H-05／H-07／H-11 已把結構37 的主要故事殺掉。下一步最值得攻的是真 1 分（H-01；30 日診斷已量化重建器把 OR 做窄一半、把固定停利 PF 灌倍，但通過／殺掉仍要 2024-08 起）與週五（H-02）。不要再提案「怎麼做比較賺」。
 2. 把日線濾網做成**預先登記**的假設，而不是看完權益曲線再切。
 3. 設計「用真實 1 分 K 時要跑的複製清單」（欄位、出場優先、停損觸價規則）。
 4. H-04 已把日線換成 TX 近月。基差／點值誤差不再是阻擋缺口結論的未知數；剩餘是真 1 分 K。
@@ -138,7 +138,9 @@ npx --yes tsx scripts/h11-atr.ts    # 加權重現 H-11
 npx --yes tsx scripts/h04-tx.ts     # TX 重驗 H-06／preset／種子
 npx --yes tsx scripts/h05-autopsy.ts
 npx --yes tsx scripts/h07-ma.ts
-npx --yes tsx scripts/h01-probe.ts  # 只記錄真 1 分仍被擋住
+npx --yes tsx scripts/h01-real1m.ts   # 30 日真 1 分 vs 重建（需 data/taifex-30d 或已有 data/tx-1min.json）
+npx --yes tsx scripts/h01-probegrid.ts # 探針網格診斷，不是 H-01 通過
+python3 scripts/h01-fetch.py          # Linux 抓 30 日 zip（對照 fetch-taifex-30d.ps1）
 ```
 
 `OOS_SPLIT` 在 `src/calendar.ts`，現在是 `"2025-08-25"`。改切點要同時重報所有策略，禁止只報變好的那一個。
@@ -149,4 +151,4 @@ npx --yes tsx scripts/h01-probe.ts  # 只記錄真 1 分仍被擋住
 
 ## 8. 回覆使用者時的語氣
 
-用繁體中文。講「假 edge 殺得差不多了／體制依賴／樣本不夠」，不要講「穩健獲利系統」或「找到薄 edge」。數字對到 `results/presets.json`（加權 seed 0）、`results/h06-gap.json`、`results/h11-atr.json`、`results/h04-tx.json`、`results/h05-autopsy.json`、`results/h07-ma.json`，發現不一致就重跑，不要用舊對話裡的近似值。
+用繁體中文。講「假 edge 殺得差不多了／體制依賴／樣本不夠」，不要講「穩健獲利系統」或「找到薄 edge」。數字對到 `results/presets.json`（加權 seed 0）、`results/h06-gap.json`、`results/h11-atr.json`、`results/h04-tx.json`、`results/h05-autopsy.json`、`results/h07-ma.json`、`results/h01-real1m.json`、`results/h01-probegrid.json`，發現不一致就重跑，不要用舊對話裡的近似值。

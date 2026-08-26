@@ -27,16 +27,17 @@ https://www.taifex.com.tw/file/taifex/Dailydownload/DailydownloadCSV/Daily_YYYY_
 ```
 
 匿名可下載（PK zip、每日約 2MB、全商品逐筆、日盤＋夜盤，夜盤掛實際成交日曆日）。
-已抓 29 個交易日並聚合成 `data/tx-1min.json`（`scripts/fetch-taifex-30d.ps1` ＋ `scripts/h01-real1m.ts`，
-29 天四價與 FinMind 日線全對齊）。第一批對照結論見 RESEARCH.md §5.11。
+已抓 30 個交易日並聚合成 `data/tx-1min.json`（`scripts/fetch-taifex-30d.ps1` 或 `python3 scripts/h01-fetch.py`，
+再 `npx --yes tsx scripts/h01-real1m.ts`；四價與 FinMind 日線全對齊）。第一批對照結論見 RESEARCH.md §5.11。
+探針網格診斷（仍不是 H-01 通過）：`npx --yes tsx scripts/h01-probegrid.ts`。
 **每日（至少每兩週）跑一次 fetch 腳本**，30 天窗滾動消失，累積一年就有約 250 天真 1 分 K。
-歷史回補（2024-08 起）仍需 FinMind sponsor。正版 probeMin 網格等真實窗夠長才准跑。
+歷史回補（2024-08 起）仍需 FinMind sponsor。正版 H-01 通過／殺掉等真實窗覆蓋 2024-08-26 起才准判。
 
 ## 里程碑 2 來源表：真實 1 分 K
 
 | 來源 | 內容 | 起始 | 費用 | 評估 |
 | --- | --- | --- | --- | --- |
-| 期交所「前 30 個交易日每筆成交資料」 | 每筆成交 CSV（不含鉅額） | 滾動 30 日 | 免費 | **已接通**（`scripts/fetch-taifex-30d.ps1`），每日抓存累積 |
+| 期交所「前 30 個交易日每筆成交資料」 | 每筆成交 CSV（不含鉅額） | 滾動 30 日 | 免費 | **已接通**（`scripts/fetch-taifex-30d.ps1` 或 `python3 scripts/h01-fetch.py`），每日抓存累積 |
 | FinMind `TaiwanFuturesTick` | 期貨逐筆成交 | 2011-01-03 | 贊助會員（sponsor，約數百元/月） | 性價比最高的歷史回補；一次一天，寫個迴圈抓 2024-08 起即可覆蓋本倉樣本 |
 | 期交所 E-Data Shop「期貨成交檔」 | 官方逐筆，含更多欄位 | 1998-07-21 | NT$10,000／月份資料 | 本倉樣本 24 個月 ≈ NT$24 萬，除非要發論文否則不值 |
 | 永豐 Shioaji API | kbars 歷史分 K | 約近幾年 | 免費（需開戶） | 有帳戶就順手，但歷史深度不保證覆蓋 2024-08 |

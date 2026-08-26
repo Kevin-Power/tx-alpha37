@@ -1,0 +1,1441 @@
+{
+  "generatedAt": "2026-08-26",
+  "experiment": "H-01-30d-probegrid",
+  "isPassFail": false,
+  "blocked": true,
+  "reason": "只有滾動 30 個交易日的真 1 分。H-01 通過／殺掉要 2024-08-26 起。本檔只衡量重建器是否仍偏惠短探針。",
+  "call": "真 1 分 30 日（2026-07-15→2026-08-25）探針網格是診斷，不是 H-01 通過。 無濾網 TORB 真 1 分：15 分 PF 1.386、37 分 1.37、45 分 1.396（最高）；15 沒有主宰 37。 同窗重建 TORB：15 分 PF 1.362、37 分 1.298。 ORB-15（短探針＋固定停利）重建 PF 2.516 vs 真 1 分 1.314——重建把 PF 灌了約一倍。 ALPHA-37 真 1 分五檔裡 37 分最高（PF 1.266），15 分 1.104。 n=30、全是 2026 多頭。不准改 probeMin，不准把 ORB-15 當發現。",
+  "window": {
+    "from": "2026-07-15",
+    "to": "2026-08-25",
+    "n": 30
+  },
+  "probes": [
+    15,
+    30,
+    37,
+    45,
+    60
+  ],
+  "bestPf": {
+    "torbReal": {
+      "probeMin": 45,
+      "pf": 1.396,
+      "n": 28
+    },
+    "torbSyn": {
+      "probeMin": 45,
+      "pf": 1.44,
+      "n": 29
+    },
+    "alphaReal": {
+      "probeMin": 37,
+      "pf": 1.266,
+      "n": 22
+    },
+    "alphaSyn": {
+      "probeMin": 45,
+      "pf": 1.325,
+      "n": 17
+    }
+  },
+  "locked": {
+    "torb37": [
+      {
+        "probeMin": 15,
+        "real": {
+          "n": 30,
+          "win": 11,
+          "pnl": 63011,
+          "pf": 1.386,
+          "wr": 0.3667,
+          "stops": 18,
+          "flatten": 12,
+          "targets": 0
+        },
+        "syn": {
+          "n": 30,
+          "win": 9,
+          "pnl": 48663,
+          "pf": 1.362,
+          "wr": 0.3,
+          "stops": 20,
+          "flatten": 10,
+          "targets": 0
+        },
+        "dPf": 0.024,
+        "dPnl": 14348
+      },
+      {
+        "probeMin": 30,
+        "real": {
+          "n": 29,
+          "win": 10,
+          "pnl": 50930,
+          "pf": 1.347,
+          "wr": 0.3448,
+          "stops": 15,
+          "flatten": 14,
+          "targets": 0
+        },
+        "syn": {
+          "n": 30,
+          "win": 11,
+          "pnl": 50751,
+          "pf": 1.341,
+          "wr": 0.3667,
+          "stops": 19,
+          "flatten": 11,
+          "targets": 0
+        },
+        "dPf": 0.006,
+        "dPnl": 179
+      },
+      {
+        "probeMin": 37,
+        "real": {
+          "n": 29,
+          "win": 10,
+          "pnl": 54825,
+          "pf": 1.37,
+          "wr": 0.3448,
+          "stops": 15,
+          "flatten": 14,
+          "targets": 0
+        },
+        "syn": {
+          "n": 29,
+          "win": 11,
+          "pnl": 42501,
+          "pf": 1.298,
+          "wr": 0.3793,
+          "stops": 17,
+          "flatten": 12,
+          "targets": 0
+        },
+        "dPf": 0.072,
+        "dPnl": 12324
+      },
+      {
+        "probeMin": 45,
+        "real": {
+          "n": 28,
+          "win": 10,
+          "pnl": 54957,
+          "pf": 1.396,
+          "wr": 0.3571,
+          "stops": 14,
+          "flatten": 14,
+          "targets": 0
+        },
+        "syn": {
+          "n": 29,
+          "win": 12,
+          "pnl": 63745,
+          "pf": 1.44,
+          "wr": 0.4138,
+          "stops": 16,
+          "flatten": 13,
+          "targets": 0
+        },
+        "dPf": -0.044,
+        "dPnl": -8788
+      },
+      {
+        "probeMin": 60,
+        "real": {
+          "n": 27,
+          "win": 8,
+          "pnl": 15041,
+          "pf": 1.1,
+          "wr": 0.2963,
+          "stops": 15,
+          "flatten": 12,
+          "targets": 0
+        },
+        "syn": {
+          "n": 27,
+          "win": 12,
+          "pnl": 41593,
+          "pf": 1.343,
+          "wr": 0.4444,
+          "stops": 13,
+          "flatten": 14,
+          "targets": 0
+        },
+        "dPf": -0.243,
+        "dPnl": -26552
+      }
+    ],
+    "alpha37": [
+      {
+        "probeMin": 15,
+        "real": {
+          "n": 20,
+          "win": 6,
+          "pnl": 10761,
+          "pf": 1.104,
+          "wr": 0.3,
+          "stops": 13,
+          "flatten": 7,
+          "targets": 0
+        },
+        "syn": {
+          "n": 18,
+          "win": 3,
+          "pnl": -65317,
+          "pf": 0.247,
+          "wr": 0.1667,
+          "stops": 14,
+          "flatten": 4,
+          "targets": 0
+        },
+        "dPf": 0.857,
+        "dPnl": 76078
+      },
+      {
+        "probeMin": 30,
+        "real": {
+          "n": 21,
+          "win": 6,
+          "pnl": -30835,
+          "pf": 0.732,
+          "wr": 0.2857,
+          "stops": 12,
+          "flatten": 9,
+          "targets": 0
+        },
+        "syn": {
+          "n": 18,
+          "win": 6,
+          "pnl": -6145,
+          "pf": 0.927,
+          "wr": 0.3333,
+          "stops": 12,
+          "flatten": 6,
+          "targets": 0
+        },
+        "dPf": -0.195,
+        "dPnl": -24690
+      },
+      {
+        "probeMin": 37,
+        "real": {
+          "n": 22,
+          "win": 8,
+          "pnl": 28780,
+          "pf": 1.266,
+          "wr": 0.3636,
+          "stops": 11,
+          "flatten": 11,
+          "targets": 0
+        },
+        "syn": {
+          "n": 15,
+          "win": 4,
+          "pnl": -13373,
+          "pf": 0.821,
+          "wr": 0.2667,
+          "stops": 10,
+          "flatten": 5,
+          "targets": 0
+        },
+        "dPf": 0.445,
+        "dPnl": 42153
+      },
+      {
+        "probeMin": 45,
+        "real": {
+          "n": 22,
+          "win": 8,
+          "pnl": 18953,
+          "pf": 1.174,
+          "wr": 0.3636,
+          "stops": 11,
+          "flatten": 11,
+          "targets": 0
+        },
+        "syn": {
+          "n": 17,
+          "win": 7,
+          "pnl": 25645,
+          "pf": 1.325,
+          "wr": 0.4118,
+          "stops": 9,
+          "flatten": 8,
+          "targets": 0
+        },
+        "dPf": -0.151,
+        "dPnl": -6692
+      },
+      {
+        "probeMin": 60,
+        "real": {
+          "n": 20,
+          "win": 6,
+          "pnl": -6896,
+          "pf": 0.937,
+          "wr": 0.3,
+          "stops": 11,
+          "flatten": 9,
+          "targets": 0
+        },
+        "syn": {
+          "n": 19,
+          "win": 8,
+          "pnl": 8574,
+          "pf": 1.101,
+          "wr": 0.4211,
+          "stops": 9,
+          "flatten": 10,
+          "targets": 0
+        },
+        "dPf": -0.164,
+        "dPnl": -15470
+      }
+    ],
+    "torb15": [
+      {
+        "probeMin": 15,
+        "real": {
+          "n": 26,
+          "win": 12,
+          "pnl": 37139,
+          "pf": 1.314,
+          "wr": 0.4615,
+          "stops": 14,
+          "flatten": 0,
+          "targets": 12
+        },
+        "syn": {
+          "n": 24,
+          "win": 17,
+          "pnl": 73322,
+          "pf": 2.516,
+          "wr": 0.7083,
+          "stops": 7,
+          "flatten": 0,
+          "targets": 17
+        },
+        "dPf": -1.202,
+        "dPnl": -36183
+      },
+      {
+        "probeMin": 30,
+        "real": {
+          "n": 26,
+          "win": 11,
+          "pnl": 20614,
+          "pf": 1.165,
+          "wr": 0.4231,
+          "stops": 13,
+          "flatten": 2,
+          "targets": 11
+        },
+        "syn": {
+          "n": 24,
+          "win": 14,
+          "pnl": 75830,
+          "pf": 2.012,
+          "wr": 0.5833,
+          "stops": 10,
+          "flatten": 0,
+          "targets": 14
+        },
+        "dPf": -0.847,
+        "dPnl": -55216
+      },
+      {
+        "probeMin": 37,
+        "real": {
+          "n": 27,
+          "win": 13,
+          "pnl": 50365,
+          "pf": 1.437,
+          "wr": 0.4815,
+          "stops": 12,
+          "flatten": 3,
+          "targets": 12
+        },
+        "syn": {
+          "n": 21,
+          "win": 10,
+          "pnl": 39725,
+          "pf": 1.491,
+          "wr": 0.4762,
+          "stops": 10,
+          "flatten": 1,
+          "targets": 10
+        },
+        "dPf": -0.054,
+        "dPnl": 10640
+      },
+      {
+        "probeMin": 45,
+        "real": {
+          "n": 27,
+          "win": 13,
+          "pnl": 52019,
+          "pf": 1.451,
+          "wr": 0.4815,
+          "stops": 12,
+          "flatten": 3,
+          "targets": 12
+        },
+        "syn": {
+          "n": 23,
+          "win": 12,
+          "pnl": 47583,
+          "pf": 1.511,
+          "wr": 0.5217,
+          "stops": 10,
+          "flatten": 1,
+          "targets": 12
+        },
+        "dPf": -0.06,
+        "dPnl": 4436
+      },
+      {
+        "probeMin": 60,
+        "real": {
+          "n": 25,
+          "win": 9,
+          "pnl": -8086,
+          "pf": 0.94,
+          "wr": 0.36,
+          "stops": 14,
+          "flatten": 2,
+          "targets": 9
+        },
+        "syn": {
+          "n": 23,
+          "win": 12,
+          "pnl": 49312,
+          "pf": 1.529,
+          "wr": 0.5217,
+          "stops": 10,
+          "flatten": 2,
+          "targets": 11
+        },
+        "dPf": -0.589,
+        "dPnl": -57398
+      }
+    ]
+  },
+  "grid": {
+    "alpha37": {
+      "15": {
+        "real": {
+          "n": 20,
+          "win": 6,
+          "pnl": 10761,
+          "pf": 1.104,
+          "wr": 0.3,
+          "stops": 13,
+          "flatten": 7,
+          "targets": 0
+        },
+        "syn": {
+          "n": 18,
+          "win": 3,
+          "pnl": -65317,
+          "pf": 0.247,
+          "wr": 0.1667,
+          "stops": 14,
+          "flatten": 4,
+          "targets": 0
+        }
+      },
+      "30": {
+        "real": {
+          "n": 21,
+          "win": 6,
+          "pnl": -30835,
+          "pf": 0.732,
+          "wr": 0.2857,
+          "stops": 12,
+          "flatten": 9,
+          "targets": 0
+        },
+        "syn": {
+          "n": 18,
+          "win": 6,
+          "pnl": -6145,
+          "pf": 0.927,
+          "wr": 0.3333,
+          "stops": 12,
+          "flatten": 6,
+          "targets": 0
+        }
+      },
+      "37": {
+        "real": {
+          "n": 22,
+          "win": 8,
+          "pnl": 28780,
+          "pf": 1.266,
+          "wr": 0.3636,
+          "stops": 11,
+          "flatten": 11,
+          "targets": 0
+        },
+        "syn": {
+          "n": 15,
+          "win": 4,
+          "pnl": -13373,
+          "pf": 0.821,
+          "wr": 0.2667,
+          "stops": 10,
+          "flatten": 5,
+          "targets": 0
+        }
+      },
+      "45": {
+        "real": {
+          "n": 22,
+          "win": 8,
+          "pnl": 18953,
+          "pf": 1.174,
+          "wr": 0.3636,
+          "stops": 11,
+          "flatten": 11,
+          "targets": 0
+        },
+        "syn": {
+          "n": 17,
+          "win": 7,
+          "pnl": 25645,
+          "pf": 1.325,
+          "wr": 0.4118,
+          "stops": 9,
+          "flatten": 8,
+          "targets": 0
+        }
+      },
+      "60": {
+        "real": {
+          "n": 20,
+          "win": 6,
+          "pnl": -6896,
+          "pf": 0.937,
+          "wr": 0.3,
+          "stops": 11,
+          "flatten": 9,
+          "targets": 0
+        },
+        "syn": {
+          "n": 19,
+          "win": 8,
+          "pnl": 8574,
+          "pf": 1.101,
+          "wr": 0.4211,
+          "stops": 9,
+          "flatten": 10,
+          "targets": 0
+        }
+      }
+    },
+    "struct37": {
+      "15": {
+        "real": {
+          "n": 13,
+          "win": 3,
+          "pnl": -20526,
+          "pf": 0.73,
+          "wr": 0.2308,
+          "stops": 10,
+          "flatten": 3,
+          "targets": 0
+        },
+        "syn": {
+          "n": 10,
+          "win": 2,
+          "pnl": -23723,
+          "pf": 0.431,
+          "wr": 0.2,
+          "stops": 7,
+          "flatten": 3,
+          "targets": 0
+        }
+      },
+      "30": {
+        "real": {
+          "n": 12,
+          "win": 3,
+          "pnl": -14338,
+          "pf": 0.785,
+          "wr": 0.25,
+          "stops": 7,
+          "flatten": 5,
+          "targets": 0
+        },
+        "syn": {
+          "n": 12,
+          "win": 4,
+          "pnl": -3436,
+          "pf": 0.942,
+          "wr": 0.3333,
+          "stops": 8,
+          "flatten": 4,
+          "targets": 0
+        }
+      },
+      "37": {
+        "real": {
+          "n": 12,
+          "win": 4,
+          "pnl": -388,
+          "pf": 0.993,
+          "wr": 0.3333,
+          "stops": 6,
+          "flatten": 6,
+          "targets": 0
+        },
+        "syn": {
+          "n": 10,
+          "win": 3,
+          "pnl": -5102,
+          "pf": 0.893,
+          "wr": 0.3,
+          "stops": 6,
+          "flatten": 4,
+          "targets": 0
+        }
+      },
+      "45": {
+        "real": {
+          "n": 12,
+          "win": 4,
+          "pnl": -10215,
+          "pf": 0.826,
+          "wr": 0.3333,
+          "stops": 6,
+          "flatten": 6,
+          "targets": 0
+        },
+        "syn": {
+          "n": 10,
+          "win": 3,
+          "pnl": -11505,
+          "pf": 0.787,
+          "wr": 0.3,
+          "stops": 6,
+          "flatten": 4,
+          "targets": 0
+        }
+      },
+      "60": {
+        "real": {
+          "n": 12,
+          "win": 3,
+          "pnl": -20031,
+          "pf": 0.707,
+          "wr": 0.25,
+          "stops": 7,
+          "flatten": 5,
+          "targets": 0
+        },
+        "syn": {
+          "n": 11,
+          "win": 4,
+          "pnl": -7975,
+          "pf": 0.838,
+          "wr": 0.3636,
+          "stops": 5,
+          "flatten": 6,
+          "targets": 0
+        }
+      }
+    },
+    "thuFri": {
+      "15": {
+        "real": {
+          "n": 8,
+          "win": 2,
+          "pnl": -16910,
+          "pf": 0.595,
+          "wr": 0.25,
+          "stops": 5,
+          "flatten": 3,
+          "targets": 0
+        },
+        "syn": {
+          "n": 8,
+          "win": 2,
+          "pnl": -20015,
+          "pf": 0.473,
+          "wr": 0.25,
+          "stops": 6,
+          "flatten": 2,
+          "targets": 0
+        }
+      },
+      "30": {
+        "real": {
+          "n": 8,
+          "win": 2,
+          "pnl": -24066,
+          "pf": 0.408,
+          "wr": 0.25,
+          "stops": 4,
+          "flatten": 4,
+          "targets": 0
+        },
+        "syn": {
+          "n": 7,
+          "win": 2,
+          "pnl": -16966,
+          "pf": 0.515,
+          "wr": 0.2857,
+          "stops": 5,
+          "flatten": 2,
+          "targets": 0
+        }
+      },
+      "37": {
+        "real": {
+          "n": 8,
+          "win": 4,
+          "pnl": 28182,
+          "pf": 2.167,
+          "wr": 0.5,
+          "stops": 2,
+          "flatten": 6,
+          "targets": 0
+        },
+        "syn": {
+          "n": 6,
+          "win": 1,
+          "pnl": -33279,
+          "pf": 0.125,
+          "wr": 0.1667,
+          "stops": 5,
+          "flatten": 1,
+          "targets": 0
+        }
+      },
+      "45": {
+        "real": {
+          "n": 8,
+          "win": 4,
+          "pnl": 26782,
+          "pf": 2.109,
+          "wr": 0.5,
+          "stops": 2,
+          "flatten": 6,
+          "targets": 0
+        },
+        "syn": {
+          "n": 7,
+          "win": 2,
+          "pnl": -25766,
+          "pf": 0.388,
+          "wr": 0.2857,
+          "stops": 5,
+          "flatten": 2,
+          "targets": 0
+        }
+      },
+      "60": {
+        "real": {
+          "n": 8,
+          "win": 3,
+          "pnl": 13932,
+          "pf": 1.415,
+          "wr": 0.375,
+          "stops": 3,
+          "flatten": 5,
+          "targets": 0
+        },
+        "syn": {
+          "n": 9,
+          "win": 4,
+          "pnl": -7539,
+          "pf": 0.796,
+          "wr": 0.4444,
+          "stops": 4,
+          "flatten": 5,
+          "targets": 0
+        }
+      }
+    },
+    "friday": {
+      "15": {
+        "real": {
+          "n": 3,
+          "win": 2,
+          "pnl": 15430,
+          "pf": 2.644,
+          "wr": 0.6667,
+          "stops": 1,
+          "flatten": 2,
+          "targets": 0
+        },
+        "syn": {
+          "n": 3,
+          "win": 1,
+          "pnl": 752,
+          "pf": 1.068,
+          "wr": 0.3333,
+          "stops": 2,
+          "flatten": 1,
+          "targets": 0
+        }
+      },
+      "30": {
+        "real": {
+          "n": 4,
+          "win": 2,
+          "pnl": -1458,
+          "pf": 0.919,
+          "wr": 0.5,
+          "stops": 2,
+          "flatten": 2,
+          "targets": 0
+        },
+        "syn": {
+          "n": 3,
+          "win": 1,
+          "pnl": -3441,
+          "pf": 0.775,
+          "wr": 0.3333,
+          "stops": 2,
+          "flatten": 1,
+          "targets": 0
+        }
+      },
+      "37": {
+        "real": {
+          "n": 4,
+          "win": 3,
+          "pnl": 15142,
+          "pf": 2.613,
+          "wr": 0.75,
+          "stops": 1,
+          "flatten": 3,
+          "targets": 0
+        },
+        "syn": {
+          "n": 2,
+          "win": 0,
+          "pnl": -16236,
+          "pf": 0,
+          "wr": 0,
+          "stops": 2,
+          "flatten": 0,
+          "targets": 0
+        }
+      },
+      "45": {
+        "real": {
+          "n": 4,
+          "win": 3,
+          "pnl": 13742,
+          "pf": 2.464,
+          "wr": 0.75,
+          "stops": 1,
+          "flatten": 3,
+          "targets": 0
+        },
+        "syn": {
+          "n": 2,
+          "win": 0,
+          "pnl": -18782,
+          "pf": 0,
+          "wr": 0,
+          "stops": 2,
+          "flatten": 0,
+          "targets": 0
+        }
+      },
+      "60": {
+        "real": {
+          "n": 4,
+          "win": 2,
+          "pnl": 892,
+          "pf": 1.048,
+          "wr": 0.5,
+          "stops": 2,
+          "flatten": 2,
+          "targets": 0
+        },
+        "syn": {
+          "n": 4,
+          "win": 2,
+          "pnl": -2786,
+          "pf": 0.852,
+          "wr": 0.5,
+          "stops": 2,
+          "flatten": 2,
+          "targets": 0
+        }
+      }
+    },
+    "skipMonWed": {
+      "15": {
+        "real": {
+          "n": 12,
+          "win": 4,
+          "pnl": 17770,
+          "pf": 1.302,
+          "wr": 0.3333,
+          "stops": 7,
+          "flatten": 5,
+          "targets": 0
+        },
+        "syn": {
+          "n": 10,
+          "win": 2,
+          "pnl": -27842,
+          "pf": 0.393,
+          "wr": 0.2,
+          "stops": 8,
+          "flatten": 2,
+          "targets": 0
+        }
+      },
+      "30": {
+        "real": {
+          "n": 13,
+          "win": 4,
+          "pnl": 33,
+          "pf": 1.001,
+          "wr": 0.3077,
+          "stops": 6,
+          "flatten": 7,
+          "targets": 0
+        },
+        "syn": {
+          "n": 11,
+          "win": 3,
+          "pnl": -5635,
+          "pf": 0.889,
+          "wr": 0.2727,
+          "stops": 8,
+          "flatten": 3,
+          "targets": 0
+        }
+      },
+      "37": {
+        "real": {
+          "n": 13,
+          "win": 5,
+          "pnl": 27181,
+          "pf": 1.525,
+          "wr": 0.3846,
+          "stops": 5,
+          "flatten": 8,
+          "targets": 0
+        },
+        "syn": {
+          "n": 10,
+          "win": 2,
+          "pnl": -23731,
+          "pf": 0.573,
+          "wr": 0.2,
+          "stops": 8,
+          "flatten": 2,
+          "targets": 0
+        }
+      },
+      "45": {
+        "real": {
+          "n": 13,
+          "win": 5,
+          "pnl": 17354,
+          "pf": 1.331,
+          "wr": 0.3846,
+          "stops": 5,
+          "flatten": 8,
+          "targets": 0
+        },
+        "syn": {
+          "n": 11,
+          "win": 4,
+          "pnl": 18188,
+          "pf": 1.321,
+          "wr": 0.3636,
+          "stops": 7,
+          "flatten": 4,
+          "targets": 0
+        }
+      },
+      "60": {
+        "real": {
+          "n": 12,
+          "win": 5,
+          "pnl": 43474,
+          "pf": 2.002,
+          "wr": 0.4167,
+          "stops": 4,
+          "flatten": 8,
+          "targets": 0
+        },
+        "syn": {
+          "n": 14,
+          "win": 6,
+          "pnl": 11033,
+          "pf": 1.177,
+          "wr": 0.4286,
+          "stops": 7,
+          "flatten": 7,
+          "targets": 0
+        }
+      }
+    },
+    "alpha37x": {
+      "15": {
+        "real": {
+          "n": 18,
+          "win": 5,
+          "pnl": -4762,
+          "pf": 0.95,
+          "wr": 0.2778,
+          "stops": 12,
+          "flatten": 6,
+          "targets": 0
+        },
+        "syn": {
+          "n": 15,
+          "win": 2,
+          "pnl": -54245,
+          "pf": 0.249,
+          "wr": 0.1333,
+          "stops": 12,
+          "flatten": 3,
+          "targets": 0
+        }
+      },
+      "30": {
+        "real": {
+          "n": 19,
+          "win": 6,
+          "pnl": -12058,
+          "pf": 0.875,
+          "wr": 0.3158,
+          "stops": 10,
+          "flatten": 9,
+          "targets": 0
+        },
+        "syn": {
+          "n": 15,
+          "win": 4,
+          "pnl": -23732,
+          "pf": 0.702,
+          "wr": 0.2667,
+          "stops": 11,
+          "flatten": 4,
+          "targets": 0
+        }
+      },
+      "37": {
+        "real": {
+          "n": 19,
+          "win": 6,
+          "pnl": -4999,
+          "pf": 0.949,
+          "wr": 0.3158,
+          "stops": 10,
+          "flatten": 9,
+          "targets": 0
+        },
+        "syn": {
+          "n": 13,
+          "win": 3,
+          "pnl": -26841,
+          "pf": 0.613,
+          "wr": 0.2308,
+          "stops": 9,
+          "flatten": 4,
+          "targets": 0
+        }
+      },
+      "45": {
+        "real": {
+          "n": 19,
+          "win": 6,
+          "pnl": -14826,
+          "pf": 0.851,
+          "wr": 0.3158,
+          "stops": 10,
+          "flatten": 9,
+          "targets": 0
+        },
+        "syn": {
+          "n": 15,
+          "win": 5,
+          "pnl": 6707,
+          "pf": 1.085,
+          "wr": 0.3333,
+          "stops": 9,
+          "flatten": 6,
+          "targets": 0
+        }
+      },
+      "60": {
+        "real": {
+          "n": 17,
+          "win": 4,
+          "pnl": -40675,
+          "pf": 0.592,
+          "wr": 0.2353,
+          "stops": 10,
+          "flatten": 7,
+          "targets": 0
+        },
+        "syn": {
+          "n": 17,
+          "win": 7,
+          "pnl": -953,
+          "pf": 0.987,
+          "wr": 0.4118,
+          "stops": 8,
+          "flatten": 9,
+          "targets": 0
+        }
+      }
+    },
+    "torb37": {
+      "15": {
+        "real": {
+          "n": 30,
+          "win": 11,
+          "pnl": 63011,
+          "pf": 1.386,
+          "wr": 0.3667,
+          "stops": 18,
+          "flatten": 12,
+          "targets": 0
+        },
+        "syn": {
+          "n": 30,
+          "win": 9,
+          "pnl": 48663,
+          "pf": 1.362,
+          "wr": 0.3,
+          "stops": 20,
+          "flatten": 10,
+          "targets": 0
+        }
+      },
+      "30": {
+        "real": {
+          "n": 29,
+          "win": 10,
+          "pnl": 50930,
+          "pf": 1.347,
+          "wr": 0.3448,
+          "stops": 15,
+          "flatten": 14,
+          "targets": 0
+        },
+        "syn": {
+          "n": 30,
+          "win": 11,
+          "pnl": 50751,
+          "pf": 1.341,
+          "wr": 0.3667,
+          "stops": 19,
+          "flatten": 11,
+          "targets": 0
+        }
+      },
+      "37": {
+        "real": {
+          "n": 29,
+          "win": 10,
+          "pnl": 54825,
+          "pf": 1.37,
+          "wr": 0.3448,
+          "stops": 15,
+          "flatten": 14,
+          "targets": 0
+        },
+        "syn": {
+          "n": 29,
+          "win": 11,
+          "pnl": 42501,
+          "pf": 1.298,
+          "wr": 0.3793,
+          "stops": 17,
+          "flatten": 12,
+          "targets": 0
+        }
+      },
+      "45": {
+        "real": {
+          "n": 28,
+          "win": 10,
+          "pnl": 54957,
+          "pf": 1.396,
+          "wr": 0.3571,
+          "stops": 14,
+          "flatten": 14,
+          "targets": 0
+        },
+        "syn": {
+          "n": 29,
+          "win": 12,
+          "pnl": 63745,
+          "pf": 1.44,
+          "wr": 0.4138,
+          "stops": 16,
+          "flatten": 13,
+          "targets": 0
+        }
+      },
+      "60": {
+        "real": {
+          "n": 27,
+          "win": 8,
+          "pnl": 15041,
+          "pf": 1.1,
+          "wr": 0.2963,
+          "stops": 15,
+          "flatten": 12,
+          "targets": 0
+        },
+        "syn": {
+          "n": 27,
+          "win": 12,
+          "pnl": 41593,
+          "pf": 1.343,
+          "wr": 0.4444,
+          "stops": 13,
+          "flatten": 14,
+          "targets": 0
+        }
+      }
+    },
+    "torb15": {
+      "15": {
+        "real": {
+          "n": 26,
+          "win": 12,
+          "pnl": 37139,
+          "pf": 1.314,
+          "wr": 0.4615,
+          "stops": 14,
+          "flatten": 0,
+          "targets": 12
+        },
+        "syn": {
+          "n": 24,
+          "win": 17,
+          "pnl": 73322,
+          "pf": 2.516,
+          "wr": 0.7083,
+          "stops": 7,
+          "flatten": 0,
+          "targets": 17
+        }
+      },
+      "30": {
+        "real": {
+          "n": 26,
+          "win": 11,
+          "pnl": 20614,
+          "pf": 1.165,
+          "wr": 0.4231,
+          "stops": 13,
+          "flatten": 2,
+          "targets": 11
+        },
+        "syn": {
+          "n": 24,
+          "win": 14,
+          "pnl": 75830,
+          "pf": 2.012,
+          "wr": 0.5833,
+          "stops": 10,
+          "flatten": 0,
+          "targets": 14
+        }
+      },
+      "37": {
+        "real": {
+          "n": 27,
+          "win": 13,
+          "pnl": 50365,
+          "pf": 1.437,
+          "wr": 0.4815,
+          "stops": 12,
+          "flatten": 3,
+          "targets": 12
+        },
+        "syn": {
+          "n": 21,
+          "win": 10,
+          "pnl": 39725,
+          "pf": 1.491,
+          "wr": 0.4762,
+          "stops": 10,
+          "flatten": 1,
+          "targets": 10
+        }
+      },
+      "45": {
+        "real": {
+          "n": 27,
+          "win": 13,
+          "pnl": 52019,
+          "pf": 1.451,
+          "wr": 0.4815,
+          "stops": 12,
+          "flatten": 3,
+          "targets": 12
+        },
+        "syn": {
+          "n": 23,
+          "win": 12,
+          "pnl": 47583,
+          "pf": 1.511,
+          "wr": 0.5217,
+          "stops": 10,
+          "flatten": 1,
+          "targets": 12
+        }
+      },
+      "60": {
+        "real": {
+          "n": 25,
+          "win": 9,
+          "pnl": -8086,
+          "pf": 0.94,
+          "wr": 0.36,
+          "stops": 14,
+          "flatten": 2,
+          "targets": 9
+        },
+        "syn": {
+          "n": 23,
+          "win": 12,
+          "pnl": 49312,
+          "pf": 1.529,
+          "wr": 0.5217,
+          "stops": 10,
+          "flatten": 2,
+          "targets": 11
+        }
+      }
+    },
+    "gap": {
+      "15": {
+        "real": {
+          "n": 20,
+          "win": 9,
+          "pnl": 29419,
+          "pf": 1.36,
+          "wr": 0.45,
+          "stops": 11,
+          "flatten": 0,
+          "targets": 9
+        },
+        "syn": {
+          "n": 18,
+          "win": 11,
+          "pnl": 37621,
+          "pf": 1.861,
+          "wr": 0.6111,
+          "stops": 7,
+          "flatten": 0,
+          "targets": 11
+        }
+      },
+      "30": {
+        "real": {
+          "n": 21,
+          "win": 7,
+          "pnl": -25173,
+          "pf": 0.776,
+          "wr": 0.3333,
+          "stops": 12,
+          "flatten": 3,
+          "targets": 6
+        },
+        "syn": {
+          "n": 18,
+          "win": 9,
+          "pnl": 30601,
+          "pf": 1.504,
+          "wr": 0.5,
+          "stops": 9,
+          "flatten": 0,
+          "targets": 9
+        }
+      },
+      "37": {
+        "real": {
+          "n": 22,
+          "win": 10,
+          "pnl": 33087,
+          "pf": 1.348,
+          "wr": 0.4545,
+          "stops": 10,
+          "flatten": 4,
+          "targets": 8
+        },
+        "syn": {
+          "n": 15,
+          "win": 6,
+          "pnl": 18487,
+          "pf": 1.331,
+          "wr": 0.4,
+          "stops": 8,
+          "flatten": 1,
+          "targets": 6
+        }
+      },
+      "45": {
+        "real": {
+          "n": 22,
+          "win": 10,
+          "pnl": 36922,
+          "pf": 1.387,
+          "wr": 0.4545,
+          "stops": 10,
+          "flatten": 4,
+          "targets": 8
+        },
+        "syn": {
+          "n": 17,
+          "win": 8,
+          "pnl": 20479,
+          "pf": 1.292,
+          "wr": 0.4706,
+          "stops": 8,
+          "flatten": 1,
+          "targets": 8
+        }
+      },
+      "60": {
+        "real": {
+          "n": 20,
+          "win": 7,
+          "pnl": -3391,
+          "pf": 0.968,
+          "wr": 0.35,
+          "stops": 11,
+          "flatten": 4,
+          "targets": 5
+        },
+        "syn": {
+          "n": 19,
+          "win": 10,
+          "pnl": 49094,
+          "pf": 1.68,
+          "wr": 0.5263,
+          "stops": 8,
+          "flatten": 2,
+          "targets": 9
+        }
+      }
+    }
+  },
+  "doNot": [
+    "改 DEFAULT_PARAMS.probeMin",
+    "把 ORB-15 當發現",
+    "把 30 日 PF 寫成 H-01 通過或殺掉",
+    "新增 preset"
+  ]
+}
