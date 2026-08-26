@@ -1,0 +1,225 @@
+{
+  "generatedAt": "2026-08-26",
+  "experiment": "H-09",
+  "issue": 10,
+  "isPassFail": false,
+  "blocked": true,
+  "reason": "只有滾動 30 個交易日的真 1 分。Q8 通過／殺掉要 2024-08-26 起。本檔只看 VWAP／波動在真 1 分上的符號，值不值得等長窗。",
+  "definition": {
+    "layer": "C（真 1 分 30 日）+ 重建陪跑",
+    "skeleton": "probeMin=37, targetR=0, stopOrFrac=0.55, gaps off",
+    "grid": "vwapFilter × volFilter",
+    "companion": "ALPHA-37 原裝",
+    "costModel": "2026 MTX",
+    "notTuned": true,
+    "sampleStartUnchanged": true
+  },
+  "call": "H-09／Q8 30 日真 1 分（2026-07-15→2026-08-25，n=30）是診斷，不是通過／殺掉。 骨架停損 0.55、探針 37、缺口關。真 1 分：無濾網 PF 1.378（n=29），只 VWAP 1.378（Δ0），只波動 1.49（Δ0.112），兩者 1.49（Δ0.112）。 ALPHA-37 原裝真 1 分 PF 1.266（n=22）。 同窗重建：無濾網 1.437、只 VWAP 1.437、只波動 1.431、兩者 1.431。 n=30、全是 2026 多頭。不准改 DEFAULT_PARAMS，不准把 30 日 PF 寫成 Q8 通過或殺掉。",
+  "window": {
+    "from": "2026-07-15",
+    "to": "2026-08-25",
+    "n": 30
+  },
+  "grid": [
+    {
+      "id": "none",
+      "label": "無 VWAP／波動（停損 0.55）",
+      "real": {
+        "n": 29,
+        "win": 10,
+        "pnl": 55767,
+        "pf": 1.378,
+        "wr": 0.3448,
+        "stops": 15,
+        "flatten": 14,
+        "targets": 0,
+        "nDays": 30,
+        "skips": {
+          "進場": 29,
+          "未突破": 1
+        }
+      },
+      "syn": {
+        "n": 29,
+        "win": 11,
+        "pnl": 56210,
+        "pf": 1.437,
+        "wr": 0.3793,
+        "stops": 17,
+        "flatten": 12,
+        "targets": 0,
+        "nDays": 30,
+        "skips": {
+          "進場": 29,
+          "未突破": 1
+        }
+      },
+      "dPfReal": 0,
+      "dPnlReal": 0,
+      "dPfSyn": 0
+    },
+    {
+      "id": "vwap",
+      "label": "只 VWAP",
+      "real": {
+        "n": 29,
+        "win": 10,
+        "pnl": 55767,
+        "pf": 1.378,
+        "wr": 0.3448,
+        "stops": 15,
+        "flatten": 14,
+        "targets": 0,
+        "nDays": 30,
+        "skips": {
+          "進場": 29,
+          "未突破": 1
+        }
+      },
+      "syn": {
+        "n": 29,
+        "win": 11,
+        "pnl": 56210,
+        "pf": 1.437,
+        "wr": 0.3793,
+        "stops": 17,
+        "flatten": 12,
+        "targets": 0,
+        "nDays": 30,
+        "skips": {
+          "進場": 29,
+          "未突破": 1
+        }
+      },
+      "dPfReal": 0,
+      "dPnlReal": 0,
+      "dPfSyn": 0
+    },
+    {
+      "id": "vol",
+      "label": "只波動",
+      "real": {
+        "n": 27,
+        "win": 10,
+        "pnl": 66841,
+        "pf": 1.49,
+        "wr": 0.3704,
+        "stops": 14,
+        "flatten": 13,
+        "targets": 0,
+        "nDays": 30,
+        "skips": {
+          "進場": 27,
+          "波動過高（濾網）": 2,
+          "波動過低（濾網）": 1
+        }
+      },
+      "syn": {
+        "n": 21,
+        "win": 7,
+        "pnl": 44056,
+        "pf": 1.431,
+        "wr": 0.3333,
+        "stops": 13,
+        "flatten": 8,
+        "targets": 0,
+        "nDays": 30,
+        "skips": {
+          "進場": 21,
+          "波動過低（濾網）": 6,
+          "波動過高（濾網）": 2,
+          "未突破": 1
+        }
+      },
+      "dPfReal": 0.112,
+      "dPnlReal": 11074,
+      "dPfSyn": -0.006
+    },
+    {
+      "id": "both",
+      "label": "VWAP＋波動",
+      "real": {
+        "n": 27,
+        "win": 10,
+        "pnl": 66841,
+        "pf": 1.49,
+        "wr": 0.3704,
+        "stops": 14,
+        "flatten": 13,
+        "targets": 0,
+        "nDays": 30,
+        "skips": {
+          "進場": 27,
+          "波動過高（濾網）": 2,
+          "波動過低（濾網）": 1
+        }
+      },
+      "syn": {
+        "n": 21,
+        "win": 7,
+        "pnl": 44056,
+        "pf": 1.431,
+        "wr": 0.3333,
+        "stops": 13,
+        "flatten": 8,
+        "targets": 0,
+        "nDays": 30,
+        "skips": {
+          "進場": 21,
+          "波動過低（濾網）": 6,
+          "波動過高（濾網）": 2,
+          "未突破": 1
+        }
+      },
+      "dPfReal": 0.112,
+      "dPnlReal": 11074,
+      "dPfSyn": -0.006
+    }
+  ],
+  "alpha37": {
+    "label": "ALPHA-37 原裝",
+    "real": {
+      "n": 22,
+      "win": 8,
+      "pnl": 28780,
+      "pf": 1.266,
+      "wr": 0.3636,
+      "stops": 11,
+      "flatten": 11,
+      "targets": 0,
+      "nDays": 30,
+      "skips": {
+        "進場": 22,
+        "缺口過大（跳過）": 4,
+        "波動過高（濾網）": 2,
+        "波動過低（濾網）": 1,
+        "缺口方向濾網": 1
+      }
+    },
+    "syn": {
+      "n": 15,
+      "win": 4,
+      "pnl": -13373,
+      "pf": 0.821,
+      "wr": 0.2667,
+      "stops": 10,
+      "flatten": 5,
+      "targets": 0,
+      "nDays": 30,
+      "skips": {
+        "進場": 15,
+        "缺口過大（跳過）": 3,
+        "缺口方向濾網": 3,
+        "波動過低（濾網）": 6,
+        "波動過高（濾網）": 2,
+        "未突破": 1
+      }
+    }
+  },
+  "doNot": [
+    "改 DEFAULT_PARAMS",
+    "改 probeMin / 0.8 / 0.55",
+    "新增 preset",
+    "把 30 日 PF 寫成 Q8 通過或殺掉"
+  ]
+}

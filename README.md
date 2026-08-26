@@ -39,7 +39,7 @@
 ## 倉庫結構
 
 ```
-RESEARCH.md          完整方法、結果、限制、文獻（§5.6 H-06，§5.7 H-11，§5.8 H-04，§5.9 H-05，§5.10 H-07，§5.15 H-08）
+RESEARCH.md          完整方法、結果、限制、文獻（§5.6 H-06，§5.7 H-11，§5.8 H-04，§5.9 H-05，§5.10 H-07，§5.15 H-08，§5.16 H-09）
 FOR_MODELS.md        給其他 LLM 的研究協議（必讀）
 OPEN_QUESTIONS.md    下一步要驗的假設
 src/                 可重跑的 TypeScript 引擎（預設 MARKETS.tx）
@@ -53,6 +53,7 @@ scripts/h01-probegrid.ts 探針網格診斷（不是 H-01 通過）
 scripts/h02-friday.ts    週五（不採納）
 scripts/h03-settle-mon.ts 結算週週一（殺掉）
 scripts/h08-bear.ts      空頭年（殺掉；不改 SAMPLE_START）
+scripts/h09-vwap.ts      VWAP×波動 30 日診斷（不是 Q8 通過）
 scripts/h01-fetch.py   Linux 抓期交所 30 日 zip
 ```
 
@@ -70,6 +71,7 @@ npx --yes tsx scripts/h01-probegrid.ts
 npx --yes tsx scripts/h02-friday.ts
 npx --yes tsx scripts/h03-settle-mon.ts
 npx --yes tsx scripts/h08-bear.ts
+npx --yes tsx scripts/h09-vwap.ts
 ```
 
 ## 文獻

@@ -107,7 +107,7 @@ ORB-15 全樣本 PF 1.58、Sharpe 2.55、樣本外 PF 2.09——這是 C 層假�
 - 用 TX 期貨價格而非 ^TWII 現貨（Q6／H-04，**已跑**：引擎預設 TX；H-06 通過失敗；結構37 沒加分）
 - 空頭年（Q5／H-08，**已跑／殺掉**：2018 ΔPF −0.013、2022 −0.108；5/20 種子通過。不准寫全能濾網）
 - 2026-07 單月 −76,483（14 筆 1 勝）是濾網失效還是波動體制（Q7／H-05，**已跑／殺掉**：TX 上那個月幾乎不是大虧月）
-- VWAP / OR 波動濾網在真 1 分上還在不在（Q8）
+- VWAP / OR 波動濾網在真 1 分上還在不在（Q8／H-09，**30 日診斷／不是通過**：VWAP 0 次開火；波動真 ΔPF +0.112、重建 −0.006。正版要 2024-08 起）
 - MA20 × weekday 交互作用（Q11／H-07，**已跑／殺掉**：TX 分年翻號，2/20 種子通過）
 - 週三是該避開還是該偏多（Q13，**已殺掉**：TX 真開盤上週三正漂移是 stale-open 假象）
 - 隔夜佔了 78% 的漲幅，日盤是不是選錯戰場（Q14，證據轉強：TX 日盤淨漂移為負；H-08 陪跑夜盤時代日內 −986、佔 103%。殺掉條件沒中）
@@ -116,7 +116,7 @@ ORB-15 全樣本 PF 1.58、Sharpe 2.55、樣本外 PF 2.09——這是 C 層假�
 
 優先順序：
 
-1. **攻擊**現有結論。H-08 已殺掉結構37 空頭年加分。H-03 已殺掉結算週週一。H-02 週五不採納（種子過不了）。下一步最值得攻的仍是真 1 分（H-01 通過／殺掉要 2024-08 起；Q8 VWAP／波動 30 日診斷可做，不是通過）。不要再提案「怎麼做比較賺」。
+1. **攻擊**現有結論。H-08 已殺掉結構37 空頭年加分。H-03 已殺掉結算週週一。H-02 週五不採納（種子過不了）。H-09 顯示這 30 日 VWAP 對 ORB 幾乎是恆真、波動真／重建翻號——仍不是 Q8 通過。下一步最值得攻的仍是真 1 分長窗（H-01 通過／殺掉要 2024-08 起）。不要再提案「怎麼做比較賺」。
 2. 把日線濾網做成**預先登記**的假設，而不是看完權益曲線再切。
 3. 設計「用真實 1 分 K 時要跑的複製清單」（欄位、出場優先、停損觸價規則）。
 4. H-04 已把日線換成 TX 近月。基差／點值誤差不再是阻擋缺口結論的未知數；剩餘是真 1 分 K。
@@ -145,6 +145,7 @@ npx --yes tsx scripts/h01-probegrid.ts # 探針網格診斷，不是 H-01 通過
 npx --yes tsx scripts/h02-friday.ts
 npx --yes tsx scripts/h03-settle-mon.ts
 npx --yes tsx scripts/h08-bear.ts     # 空頭年（殺掉）；不改 SAMPLE_START
+npx --yes tsx scripts/h09-vwap.ts     # VWAP×波動 30 日診斷，不是 Q8 通過
 python3 scripts/h01-fetch.py          # Linux 抓 30 日 zip（對照 fetch-taifex-30d.ps1）
 ```
 
@@ -156,4 +157,4 @@ python3 scripts/h01-fetch.py          # Linux 抓 30 日 zip（對照 fetch-taif
 
 ## 8. 回覆使用者時的語氣
 
-用繁體中文。講「假 edge 殺得差不多了／體制依賴／樣本不夠」，不要講「穩健獲利系統」或「找到薄 edge」。數字對到 `results/presets.json`（加權 seed 0）、`results/h06-gap.json`、`results/h11-atr.json`、`results/h04-tx.json`、`results/h05-autopsy.json`、`results/h07-ma.json`、`results/h01-real1m.json`、`results/h01-probegrid.json`、`results/h02-friday.json`、`results/h03-settle-mon.json`、`results/h08-bear.json`，發現不一致就重跑，不要用舊對話裡的近似值。
+用繁體中文。講「假 edge 殺得差不多了／體制依賴／樣本不夠」，不要講「穩健獲利系統」或「找到薄 edge」。數字對到 `results/presets.json`（加權 seed 0）、`results/h06-gap.json`、`results/h11-atr.json`、`results/h04-tx.json`、`results/h05-autopsy.json`、`results/h07-ma.json`、`results/h01-real1m.json`、`results/h01-probegrid.json`、`results/h02-friday.json`、`results/h03-settle-mon.json`、`results/h08-bear.json`、`results/h09-vwap.json`，發現不一致就重跑，不要用舊對話裡的近似值。
