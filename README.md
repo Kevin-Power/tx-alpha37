@@ -32,14 +32,14 @@
 
 **ORB-15 看起來最好，請當假象。** 論文用真 1 分 K 選的是 37 分，不是 15 分。本倉的 1 分路徑是日線重建，且已證實結構性偏惠短探針＋固定停利（20/20 種子）。**2026-08-25 起有真實資料佐證**：期交所 30 日逐筆聚合的 29 個真實日上，重建器把 OR 寬度做窄約一半（中位 2.03×）、把 ORB-15 停利命中率從 48% 灌到 71%（§5.11、`data/tx-1min.json`）。
 
-被推翻：跳過月結算週三、結算週週一（H-03）、外資水位、0.55 缺口順勢、ATR 擴張 2.0、≥ 0.8 ATR 放假當已確認法則（H-04）、結構37 避震器（H-05）、MA20 跨星期結構（H-07）、結構37 空頭年加分（H-08）。週五不採納（H-02）。沒有新預設。
+被推翻：跳過月結算週三、結算週週一（H-03）、外資水位、0.55 缺口順勢、ATR 擴張 2.0、≥ 0.8 ATR 放假當已確認法則（H-04）、結構37 避震器（H-05）、MA20 跨星期結構（H-07）、結構37 空頭年加分（H-08）、固定 1 口微台當報告單位（H-10 B）。週五不採納（H-02）。波動倉 vs 固定 1 口小台無結論（H-10 A）。沒有新預設。
 
 已降級（2026-08-25 種子擾動攻擊輪）：ALPHA-37 濾網「救成勉強賺」→ 未證實；結構37 → 體制依賴（MA 單調性測試失敗）；週五 edge → 未證實（PF 1.63 是 60 條路徑最大值）。資料升級路線見 [DATA_SOURCES.md](./DATA_SOURCES.md)。
 
 ## 倉庫結構
 
 ```
-RESEARCH.md          完整方法、結果、限制、文獻（§5.6 H-06，§5.7 H-11，§5.8 H-04，§5.9 H-05，§5.10 H-07，§5.15 H-08，§5.16 H-09）
+RESEARCH.md          完整方法、結果、限制、文獻（§5.6 H-06，§5.7 H-11，§5.8 H-04，§5.9 H-05，§5.10 H-07，§5.15 H-08，§5.16 H-09，§5.17 H-10）
 FOR_MODELS.md        給其他 LLM 的研究協議（必讀）
 OPEN_QUESTIONS.md    下一步要驗的假設
 src/                 可重跑的 TypeScript 引擎（預設 MARKETS.tx）
@@ -54,6 +54,7 @@ scripts/h02-friday.ts    週五（不採納）
 scripts/h03-settle-mon.ts 結算週週一（殺掉）
 scripts/h08-bear.ts      空頭年（殺掉；不改 SAMPLE_START）
 scripts/h09-vwap.ts      VWAP×波動 30 日診斷（不是 Q8 通過）
+scripts/h10-size.ts      固定 1 口 vs 波動倉（B 殺掉，A 無結論）
 scripts/h01-fetch.py   Linux 抓期交所 30 日 zip
 ```
 
@@ -72,6 +73,7 @@ npx --yes tsx scripts/h02-friday.ts
 npx --yes tsx scripts/h03-settle-mon.ts
 npx --yes tsx scripts/h08-bear.ts
 npx --yes tsx scripts/h09-vwap.ts
+npx --yes tsx scripts/h10-size.ts
 ```
 
 ## 文獻

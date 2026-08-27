@@ -51,7 +51,7 @@ ORB-15 全樣本 PF 1.58、Sharpe 2.55、樣本外 PF 2.09——這是 C 層假�
 5. **不准**把跳過月結算週三當改進。樣本上當天 18 筆 PF 3.19；37X 把結算日拿掉之後更差。
 6. **不准**把外資**存量**空單當看空。2026-08-24 外資淨空約 −82,529 口，投信 +75,808；這是現貨多、期貨避險的對作。流量才能用，水位不行。
 7. 成本模型必須留著：稅 + 手續費 + 滑價。把滑價設 0 再宣布 alpha，直接駁回。
-8. 預設契約是 **MTX 小台**。大台 TX 槓桿不適合作為這套當沖的預設。
+8. 預設契約是 **MTX 小台**。大台 TX 槓桿不適合作為這套當沖的預設。H-10 殺掉「改報固定 1 口微台」（單邊 50 元手續費吃掉小點數贏家，20/20 種子 PF 較差）。不准改成 TMF 預設。
 9. 一天一口、只做日盤、13:30 沒碰到停損就平。改成夜盤或隔夜持有，是**另一個研究**，不要偷偷混進來。
 10. 新增濾網若只在 2026 有用、2025 變差，寫「體制依賴」，不要寫「改進」。
 11. **不准**報單一重建路徑的 KPI。任何路徑相依的數字（PF、Sharpe、月損益、停損次數）必須跨 ≥20 個 `seedOffset` 報 min/med/max 與 >1 比例（`scripts/run.ts` 已內建）。相對增量的主張須在 ≥70% 種子上成立。canonical 路徑（seed 0）已被證實系統性偏惠 `targetR=0`／37 分探針的組（RESEARCH.md 第 10 節）。
@@ -96,6 +96,7 @@ ORB-15 全樣本 PF 1.58、Sharpe 2.55、樣本外 PF 2.09——這是 C 層假�
 - **MA20 在至少四個 weekday 同號加分**——H-07：TX 分年翻號，2/20 種子通過
 - **結算週週一該放假**——H-03：TX PF 1.23 與其他週一同；0 筆換月；加權 0.17 是假開盤
 - **結構37 在空頭年相對 ALPHA-37 加分**——H-08：2018 ΔPF −0.013、2022 −0.108；5/20 種子通過。2018 均線下 o→c 反而比較賺
+- **固定 1 口微台當報告單位**——H-10 B：20/20 種子 PF 較差，2 筆小台贏家被手續費翻號。不准改預設契約
 - 「週三 gamma 假突破」的故事（C 層損益編的，A 層方向相反）
 - 用 ^TWII 開盤價直接下任何日內漂移結論（stale-open 假象）
 
@@ -111,12 +112,13 @@ ORB-15 全樣本 PF 1.58、Sharpe 2.55、樣本外 PF 2.09——這是 C 層假�
 - MA20 × weekday 交互作用（Q11／H-07，**已跑／殺掉**：TX 分年翻號，2/20 種子通過）
 - 週三是該避開還是該偏多（Q13，**已殺掉**：TX 真開盤上週三正漂移是 stale-open 假象）
 - 隔夜佔了 78% 的漲幅，日盤是不是選錯戰場（Q14，證據轉強：TX 日盤淨漂移為負；H-08 陪跑夜盤時代日內 −986、佔 103%。殺掉條件沒中）
+- 固定 1 口 vs 1.2% 波動倉（Q9／H-10，**B 殺掉／A 無結論**：微台手續費翻贏家；2026 佔比爆炸。30 日真 1 分全是 1 口。不准改預設契約或開 1 口預設）
 
 ## 5. 你應該做的事
 
 優先順序：
 
-1. **攻擊**現有結論。H-08 已殺掉結構37 空頭年加分。H-03 已殺掉結算週週一。H-02 週五不採納（種子過不了）。H-09 顯示這 30 日 VWAP 對 ORB 幾乎是恆真、波動真／重建翻號——仍不是 Q8 通過。下一步最值得攻的仍是真 1 分長窗（H-01 通過／殺掉要 2024-08 起）。不要再提案「怎麼做比較賺」。
+1. **攻擊**現有結論。H-10 殺掉微台報告單位，波動倉口數無結論（OR 偏窄灌 2 口）。H-08 已殺掉結構37 空頭年加分。H-03 已殺掉結算週週一。H-02 週五不採納（種子過不了）。H-09 顯示這 30 日 VWAP 對 ORB 幾乎是恆真、波動真／重建翻號——仍不是 Q8 通過。下一步最值得攻的仍是真 1 分長窗（H-01 通過／殺掉要 2024-08 起）。不要再提案「怎麼做比較賺」。
 2. 把日線濾網做成**預先登記**的假設，而不是看完權益曲線再切。
 3. 設計「用真實 1 分 K 時要跑的複製清單」（欄位、出場優先、停損觸價規則）。
 4. H-04 已把日線換成 TX 近月。基差／點值誤差不再是阻擋缺口結論的未知數；剩餘是真 1 分 K。
@@ -146,6 +148,7 @@ npx --yes tsx scripts/h02-friday.ts
 npx --yes tsx scripts/h03-settle-mon.ts
 npx --yes tsx scripts/h08-bear.ts     # 空頭年（殺掉）；不改 SAMPLE_START
 npx --yes tsx scripts/h09-vwap.ts     # VWAP×波動 30 日診斷，不是 Q8 通過
+npx --yes tsx scripts/h10-size.ts     # 固定 1 口 vs 波動倉（B 殺掉，A 無結論）
 python3 scripts/h01-fetch.py          # Linux 抓 30 日 zip（對照 fetch-taifex-30d.ps1）
 ```
 
@@ -157,4 +160,4 @@ python3 scripts/h01-fetch.py          # Linux 抓 30 日 zip（對照 fetch-taif
 
 ## 8. 回覆使用者時的語氣
 
-用繁體中文。講「假 edge 殺得差不多了／體制依賴／樣本不夠」，不要講「穩健獲利系統」或「找到薄 edge」。數字對到 `results/presets.json`（加權 seed 0）、`results/h06-gap.json`、`results/h11-atr.json`、`results/h04-tx.json`、`results/h05-autopsy.json`、`results/h07-ma.json`、`results/h01-real1m.json`、`results/h01-probegrid.json`、`results/h02-friday.json`、`results/h03-settle-mon.json`、`results/h08-bear.json`、`results/h09-vwap.json`，發現不一致就重跑，不要用舊對話裡的近似值。
+用繁體中文。講「假 edge 殺得差不多了／體制依賴／樣本不夠」，不要講「穩健獲利系統」或「找到薄 edge」。數字對到 `results/presets.json`（加權 seed 0）、`results/h06-gap.json`、`results/h11-atr.json`、`results/h04-tx.json`、`results/h05-autopsy.json`、`results/h07-ma.json`、`results/h01-real1m.json`、`results/h01-probegrid.json`、`results/h02-friday.json`、`results/h03-settle-mon.json`、`results/h08-bear.json`、`results/h09-vwap.json`、`results/h10-size.json`，發現不一致就重跑，不要用舊對話裡的近似值。

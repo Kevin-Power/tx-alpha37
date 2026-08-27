@@ -1,0 +1,652 @@
+{
+  "generatedAt": "2026-08-27",
+  "experiment": "H-10",
+  "issue": 11,
+  "definition": {
+    "layer": "資金曲線，不是訊號",
+    "primary": "tx 2024-08-26",
+    "companion": "tx 2012-01-02 clone",
+    "specs": [
+      "risk-mtx",
+      "fix1-mtx",
+      "fix1-tmf",
+      "risk-tmf"
+    ],
+    "sampleStartUnchanged": true,
+    "notTuned": true,
+    "passA": "lots>1 ≥30% 且 2026 佔比差 ≥5pp 且 DD(risk)>DD(fix1) 且 ≥70% 種子",
+    "killA": "均口數 <1.15 或 lots>1 <15% 或佔比差<5pp 且回撤沒比較差",
+    "passB": "fix1-tmf DD% < fix1-mtx 且 PF 不因成本變差 且 2025 同號",
+    "killB": "微台 PF 較差或勝率翻號（手續費吃掉小贏家）"
+  },
+  "verdict": {
+    "passA": false,
+    "killA": false,
+    "callA": "INCONCLUSIVE A：2026 佔比在總損益接近 0 時會爆炸，過不了 ≥70% 種子。重建路徑上波動倉是 1 或 2 口，回撤 20/20 較差，但 30 日真 1 分全是 1 口（OR 偏窄灌口數）。不准改 DEFAULT_PARAMS，不准開 1 口預設。",
+    "passB": false,
+    "killB": true,
+    "callB": "KILL B：微台不是更誠實的報告單位——單邊 50 元手續費吃掉小點數贏家。",
+    "killALots": false,
+    "nSharePos": 11,
+    "nDdWorse": 20,
+    "nFixPfBetter": 14,
+    "dShare": 1.9595,
+    "dDd": 0.1693,
+    "nFlip": 2,
+    "dPnl2025": -39787,
+    "dPnl2026": 19285,
+    "noteShare": "share2026 = 年損益/總損益。總損益接近 0 時會爆炸（H-02 同一病），不能當通過條件的穩健 KPI。"
+  },
+  "seed0": {
+    "window2024": {
+      "risk-mtx": {
+        "n": 271,
+        "win": 97,
+        "wr": 0.3579,
+        "pf": 1.061,
+        "pnl": 63228,
+        "expect": 233,
+        "cagr": 0.0615,
+        "dd": 0.3329,
+        "oosN": 129,
+        "oosPf": 1.398,
+        "y2025": {
+          "n": 149,
+          "pnl": -72570
+        },
+        "y2026": {
+          "n": 76,
+          "pnl": 224571
+        },
+        "share2026": 3.5517,
+        "meanLots": 1.646,
+        "nGt1": 175,
+        "fracGt1": 0.6458,
+        "maxLots": 2,
+        "hist": {
+          "1": 96,
+          "2": 175
+        }
+      },
+      "fix1-mtx": {
+        "n": 271,
+        "win": 97,
+        "wr": 0.3579,
+        "pf": 1.189,
+        "pnl": 128930,
+        "expect": 476,
+        "cagr": 0.1218,
+        "dd": 0.1636,
+        "oosN": 129,
+        "oosPf": 1.486,
+        "y2025": {
+          "n": 149,
+          "pnl": -32783
+        },
+        "y2026": {
+          "n": 76,
+          "pnl": 205286
+        },
+        "share2026": 1.5922,
+        "meanLots": 1,
+        "nGt1": 0,
+        "fracGt1": 0,
+        "maxLots": 1,
+        "hist": {
+          "1": 271
+        }
+      },
+      "fix1-tmf": {
+        "n": 271,
+        "win": 95,
+        "wr": 0.3506,
+        "pf": 1.027,
+        "pnl": 4078,
+        "expect": 15,
+        "cagr": 0.0041,
+        "dd": 0.0619,
+        "oosN": 129,
+        "oosPf": 1.328,
+        "y2025": {
+          "n": 149,
+          "pnl": -18503
+        },
+        "y2026": {
+          "n": 76,
+          "pnl": 34985
+        },
+        "share2026": 8.5783,
+        "meanLots": 1,
+        "nGt1": 0,
+        "fracGt1": 0,
+        "maxLots": 1,
+        "hist": {
+          "1": 271
+        }
+      },
+      "risk-tmf": {
+        "n": 271,
+        "win": 95,
+        "wr": 0.3506,
+        "pf": 0.891,
+        "pnl": -125018,
+        "expect": -461,
+        "cagr": -0.1343,
+        "dd": 0.6104,
+        "oosN": 129,
+        "oosPf": 1.228,
+        "y2025": {
+          "n": 149,
+          "pnl": -177925
+        },
+        "y2026": {
+          "n": 76,
+          "pnl": 180168
+        },
+        "share2026": -1.4411,
+        "meanLots": 8.41,
+        "nGt1": 271,
+        "fracGt1": 1,
+        "maxLots": 10,
+        "hist": {
+          "3": 26,
+          "4": 17,
+          "5": 8,
+          "6": 8,
+          "7": 11,
+          "8": 16,
+          "9": 10,
+          "10": 175
+        }
+      },
+      "nFlipMtxWinTmfLose": 2
+    },
+    "window2012": {
+      "risk-mtx": {
+        "n": 1533,
+        "win": 640,
+        "wr": 0.4175,
+        "pf": 0.834,
+        "pnl": -768669,
+        "expect": -501,
+        "cagr": -0.7573,
+        "dd": 1.9956,
+        "oosN": 129,
+        "oosPf": 1.398,
+        "y2025": {
+          "n": 149,
+          "pnl": -72570
+        },
+        "y2026": {
+          "n": 76,
+          "pnl": 224571
+        },
+        "share2026": -0.2922,
+        "meanLots": 1.907,
+        "nGt1": 1390,
+        "fracGt1": 0.9067,
+        "maxLots": 2,
+        "hist": {
+          "1": 143,
+          "2": 1390
+        }
+      },
+      "fix1-mtx": {
+        "n": 1533,
+        "win": 640,
+        "wr": 0.4175,
+        "pf": 0.868,
+        "pnl": -334904,
+        "expect": -218,
+        "cagr": -0.0729,
+        "dd": 1.0912,
+        "oosN": 129,
+        "oosPf": 1.486,
+        "y2025": {
+          "n": 149,
+          "pnl": -32783
+        },
+        "y2026": {
+          "n": 76,
+          "pnl": 205286
+        },
+        "share2026": -0.613,
+        "meanLots": 1,
+        "nGt1": 0,
+        "fracGt1": 0,
+        "maxLots": 1,
+        "hist": {
+          "1": 1533
+        }
+      },
+      "fix1-tmf": {
+        "n": 1533,
+        "win": 603,
+        "wr": 0.3933,
+        "pf": 0.674,
+        "pnl": -189688,
+        "expect": -124,
+        "cagr": -0.0321,
+        "dd": 0.4494,
+        "oosN": 129,
+        "oosPf": 1.328,
+        "y2025": {
+          "n": 149,
+          "pnl": -18503
+        },
+        "y2026": {
+          "n": 76,
+          "pnl": 34985
+        },
+        "share2026": -0.1844,
+        "meanLots": 1,
+        "nGt1": 0,
+        "fracGt1": 0,
+        "maxLots": 1,
+        "hist": {
+          "1": 1533
+        }
+      },
+      "risk-tmf": {
+        "n": 1533,
+        "win": 603,
+        "wr": 0.3933,
+        "pf": 0.624,
+        "pnl": -2021816,
+        "expect": -1319,
+        "cagr": -0.7573,
+        "dd": 4.404,
+        "oosN": 129,
+        "oosPf": 1.228,
+        "y2025": {
+          "n": 149,
+          "pnl": -177925
+        },
+        "y2026": {
+          "n": 76,
+          "pnl": 180168
+        },
+        "share2026": -0.0891,
+        "meanLots": 9.649,
+        "nGt1": 1533,
+        "fracGt1": 1,
+        "maxLots": 10,
+        "hist": {
+          "3": 26,
+          "4": 19,
+          "5": 10,
+          "6": 15,
+          "7": 16,
+          "8": 27,
+          "9": 30,
+          "10": 1390
+        }
+      },
+      "nFlipMtxWinTmfLose": 37
+    }
+  },
+  "seeds": [
+    {
+      "seed": 0,
+      "meanLots": 1.646,
+      "fracGt1": 0.6458,
+      "shareRisk": 3.5517,
+      "shareFix": 1.5922,
+      "dShare": 1.9595,
+      "ddRisk": 0.3329,
+      "ddFix": 0.1636,
+      "dDd": 0.1693,
+      "pfRisk": 1.061,
+      "pfFix": 1.189,
+      "pfTmf": 1.027,
+      "wrTmf": 0.3506,
+      "wrFix": 0.3579,
+      "nFlip": 2
+    },
+    {
+      "seed": 1,
+      "meanLots": 1.579,
+      "fracGt1": 0.5793,
+      "shareRisk": 15.5554,
+      "shareFix": -33.0038,
+      "dShare": 48.5592,
+      "ddRisk": 0.383,
+      "ddFix": 0.2952,
+      "dDd": 0.0878,
+      "pfRisk": 1.009,
+      "pfFix": 0.996,
+      "pfTmf": 0.863,
+      "wrTmf": 0.3026,
+      "wrFix": 0.3137,
+      "nFlip": 3
+    },
+    {
+      "seed": 2,
+      "meanLots": 1.594,
+      "fracGt1": 0.5944,
+      "shareRisk": 0.6802,
+      "shareFix": 0.8165,
+      "dShare": -0.1363,
+      "ddRisk": 0.1868,
+      "ddFix": 0.178,
+      "dDd": 0.0088,
+      "pfRisk": 1.172,
+      "pfFix": 1.21,
+      "pfTmf": 1.041,
+      "wrTmf": 0.3671,
+      "wrFix": 0.3776,
+      "nFlip": 3
+    },
+    {
+      "seed": 3,
+      "meanLots": 1.609,
+      "fracGt1": 0.6089,
+      "shareRisk": -7.3374,
+      "shareFix": 2.4312,
+      "dShare": -9.7686,
+      "ddRisk": 0.4528,
+      "ddFix": 0.2769,
+      "dDd": 0.1759,
+      "pfRisk": 0.988,
+      "pfFix": 1.046,
+      "pfTmf": 0.9,
+      "wrTmf": 0.3284,
+      "wrFix": 0.3432,
+      "nFlip": 4
+    },
+    {
+      "seed": 4,
+      "meanLots": 1.594,
+      "fracGt1": 0.5936,
+      "shareRisk": 4.5486,
+      "shareFix": 0.6892,
+      "dShare": 3.8594,
+      "ddRisk": 0.2507,
+      "ddFix": 0.1572,
+      "dDd": 0.0935,
+      "pfRisk": 1.003,
+      "pfFix": 1.003,
+      "pfTmf": 0.861,
+      "wrTmf": 0.3463,
+      "wrFix": 0.3569,
+      "nFlip": 3
+    },
+    {
+      "seed": 5,
+      "meanLots": 1.592,
+      "fracGt1": 0.5925,
+      "shareRisk": -1.9764,
+      "shareFix": -179.0022,
+      "dShare": 177.0258,
+      "ddRisk": 0.4649,
+      "ddFix": 0.3335,
+      "dDd": 0.1314,
+      "pfRisk": 0.934,
+      "pfFix": 0.999,
+      "pfTmf": 0.866,
+      "wrTmf": 0.3019,
+      "wrFix": 0.3057,
+      "nFlip": 1
+    },
+    {
+      "seed": 6,
+      "meanLots": 1.563,
+      "fracGt1": 0.5627,
+      "shareRisk": -0.8127,
+      "shareFix": -4.0472,
+      "dShare": 3.2345,
+      "ddRisk": 0.3963,
+      "ddFix": 0.2457,
+      "dDd": 0.1506,
+      "pfRisk": 0.903,
+      "pfFix": 0.975,
+      "pfTmf": 0.839,
+      "wrTmf": 0.3154,
+      "wrFix": 0.3297,
+      "nFlip": 4
+    },
+    {
+      "seed": 7,
+      "meanLots": 1.598,
+      "fracGt1": 0.5978,
+      "shareRisk": 1.079,
+      "shareFix": 1.1766,
+      "dShare": -0.0976,
+      "ddRisk": 0.2969,
+      "ddFix": 0.1684,
+      "dDd": 0.1285,
+      "pfRisk": 1.158,
+      "pfFix": 1.127,
+      "pfTmf": 0.969,
+      "wrTmf": 0.3587,
+      "wrFix": 0.3696,
+      "nFlip": 3
+    },
+    {
+      "seed": 8,
+      "meanLots": 1.552,
+      "fracGt1": 0.5522,
+      "shareRisk": 0.6253,
+      "shareFix": 0.6937,
+      "dShare": -0.0684,
+      "ddRisk": 0.7694,
+      "ddFix": 0.7057,
+      "dDd": 0.0637,
+      "pfRisk": 0.665,
+      "pfFix": 0.58,
+      "pfTmf": 0.495,
+      "wrTmf": 0.2761,
+      "wrFix": 0.2799,
+      "nFlip": 1
+    },
+    {
+      "seed": 9,
+      "meanLots": 1.572,
+      "fracGt1": 0.572,
+      "shareRisk": -0.9611,
+      "shareFix": -4.2497,
+      "dShare": 3.2886,
+      "ddRisk": 0.6409,
+      "ddFix": 0.37,
+      "dDd": 0.2709,
+      "pfRisk": 0.862,
+      "pfFix": 0.957,
+      "pfTmf": 0.823,
+      "wrTmf": 0.2952,
+      "wrFix": 0.2989,
+      "nFlip": 1
+    },
+    {
+      "seed": 10,
+      "meanLots": 1.63,
+      "fracGt1": 0.6296,
+      "shareRisk": -0.1915,
+      "shareFix": -0.2759,
+      "dShare": 0.0844,
+      "ddRisk": 0.8399,
+      "ddFix": 0.5048,
+      "dDd": 0.3351,
+      "pfRisk": 0.702,
+      "pfFix": 0.761,
+      "pfTmf": 0.652,
+      "wrTmf": 0.2667,
+      "wrFix": 0.2667,
+      "nFlip": 0
+    },
+    {
+      "seed": 11,
+      "meanLots": 1.621,
+      "fracGt1": 0.6206,
+      "shareRisk": 3.7684,
+      "shareFix": 1.6063,
+      "dShare": 2.1621,
+      "ddRisk": 0.3303,
+      "ddFix": 0.1655,
+      "dDd": 0.1648,
+      "pfRisk": 1.033,
+      "pfFix": 1.101,
+      "pfTmf": 0.952,
+      "wrTmf": 0.3262,
+      "wrFix": 0.3404,
+      "nFlip": 4
+    },
+    {
+      "seed": 12,
+      "meanLots": 1.621,
+      "fracGt1": 0.6213,
+      "shareRisk": 0.9423,
+      "shareFix": 1.0172,
+      "dShare": -0.0749,
+      "ddRisk": 0.1977,
+      "ddFix": 0.1365,
+      "dDd": 0.0612,
+      "pfRisk": 1.06,
+      "pfFix": 1.14,
+      "pfTmf": 0.976,
+      "wrTmf": 0.3419,
+      "wrFix": 0.3529,
+      "nFlip": 3
+    },
+    {
+      "seed": 13,
+      "meanLots": 1.596,
+      "fracGt1": 0.5964,
+      "shareRisk": 6.9314,
+      "shareFix": 1.5287,
+      "dShare": 5.4027,
+      "ddRisk": 0.3372,
+      "ddFix": 0.1987,
+      "dDd": 0.1385,
+      "pfRisk": 1.01,
+      "pfFix": 1.065,
+      "pfTmf": 0.918,
+      "wrTmf": 0.3345,
+      "wrFix": 0.3455,
+      "nFlip": 3
+    },
+    {
+      "seed": 14,
+      "meanLots": 1.627,
+      "fracGt1": 0.6273,
+      "shareRisk": 3.4583,
+      "shareFix": 2.0938,
+      "dShare": 1.3645,
+      "ddRisk": 0.3303,
+      "ddFix": 0.1579,
+      "dDd": 0.1724,
+      "pfRisk": 1.025,
+      "pfFix": 1.042,
+      "pfTmf": 0.9,
+      "wrTmf": 0.321,
+      "wrFix": 0.3247,
+      "nFlip": 1
+    },
+    {
+      "seed": 15,
+      "meanLots": 1.601,
+      "fracGt1": 0.6007,
+      "shareRisk": -0.3333,
+      "shareFix": -0.1997,
+      "dShare": -0.1336,
+      "ddRisk": 0.66,
+      "ddFix": 0.3696,
+      "dDd": 0.2904,
+      "pfRisk": 0.793,
+      "pfFix": 0.808,
+      "pfTmf": 0.693,
+      "wrTmf": 0.2948,
+      "wrFix": 0.3022,
+      "nFlip": 2
+    },
+    {
+      "seed": 16,
+      "meanLots": 1.57,
+      "fracGt1": 0.5699,
+      "shareRisk": 0.0754,
+      "shareFix": 0.2794,
+      "dShare": -0.204,
+      "ddRisk": 0.3999,
+      "ddFix": 0.3658,
+      "dDd": 0.0341,
+      "pfRisk": 0.843,
+      "pfFix": 0.805,
+      "pfTmf": 0.691,
+      "wrTmf": 0.3118,
+      "wrFix": 0.3226,
+      "nFlip": 3
+    },
+    {
+      "seed": 17,
+      "meanLots": 1.633,
+      "fracGt1": 0.6332,
+      "shareRisk": 7.5247,
+      "shareFix": 2.2021,
+      "dShare": 5.3226,
+      "ddRisk": 0.6117,
+      "ddFix": 0.3364,
+      "dDd": 0.2753,
+      "pfRisk": 1.03,
+      "pfFix": 1.132,
+      "pfTmf": 0.974,
+      "wrTmf": 0.3287,
+      "wrFix": 0.3322,
+      "nFlip": 1
+    },
+    {
+      "seed": 18,
+      "meanLots": 1.567,
+      "fracGt1": 0.5665,
+      "shareRisk": 0.7774,
+      "shareFix": 0.8381,
+      "dShare": -0.0607,
+      "ddRisk": 0.193,
+      "ddFix": 0.1182,
+      "dDd": 0.0748,
+      "pfRisk": 1.201,
+      "pfFix": 1.276,
+      "pfTmf": 1.095,
+      "wrTmf": 0.3802,
+      "wrFix": 0.3878,
+      "nFlip": 2
+    },
+    {
+      "seed": 19,
+      "meanLots": 1.606,
+      "fracGt1": 0.6064,
+      "shareRisk": -290.8319,
+      "shareFix": 5.8243,
+      "dShare": -296.6562,
+      "ddRisk": 0.2136,
+      "ddFix": 0.1737,
+      "dDd": 0.0399,
+      "pfRisk": 1,
+      "pfFix": 0.998,
+      "pfTmf": 0.859,
+      "wrTmf": 0.3511,
+      "wrFix": 0.3511,
+      "nFlip": 0
+    }
+  ],
+  "real1mLots": {
+    "isPassFail": false,
+    "window": {
+      "from": "2026-07-15",
+      "to": "2026-08-25",
+      "n": 30
+    },
+    "real": {
+      "n": 22,
+      "meanOr": 482.773,
+      "meanStop": 173.909,
+      "meanLots": 1,
+      "nGt1": 0
+    },
+    "syn": {
+      "n": 15,
+      "meanOr": 286.153,
+      "meanStop": 141.373,
+      "meanLots": 1,
+      "nGt1": 0
+    }
+  }
+}
